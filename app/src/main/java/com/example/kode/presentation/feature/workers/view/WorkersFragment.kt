@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.example.kode.databinding.FragmentWorkersBinding
 import com.example.kode.model.Worker
 import com.example.kode.presentation.feature.workers.adapter.WorkersAdapter
