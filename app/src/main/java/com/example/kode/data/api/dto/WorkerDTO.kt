@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 data class WorkerDTO(
 
     val id: String,
-    @SerialName("avatarURL") val avatarUrl: String,
+    @SerialName("avatarUrl") val avatarUrl: String,
     val firstName: String,
     val lastName: String,
     val userTag: String,

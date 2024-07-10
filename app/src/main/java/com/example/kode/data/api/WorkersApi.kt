@@ -1,9 +1,12 @@
 package com.example.kode.data.api
 
 import com.example.kode.data.api.dto.WorkerDTO
+import com.example.kode.data.api.dto.WorkersListDTO
 import retrofit2.http.GET
+import retrofit2.http.Headers
 
 interface WorkersApi {
-    @GET("/users")
-    suspend fun getWorkers() : List<WorkerDTO>
+    @Headers("Accept: application/json, application/xml", "Prefer: code=200, example=success")
+    @GET("users")
+    suspend fun getWorkers() : WorkersListDTO
 }

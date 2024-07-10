@@ -5,49 +5,53 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.kode.data.Mappers
+import com.example.kode.data.api.dto.WorkersListDTO
 import com.example.kode.databinding.FragmentWorkersBinding
 import com.example.kode.model.Worker
 import com.example.kode.presentation.feature.workers.adapter.WorkersAdapter
-
-
-
-// 1. adapter V
-// 2. item V
-// 3. view holder for adapter V
-//
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class WorkersFragment : Fragment() {
 
     private var _binding: FragmentWorkersBinding? = null
     private val binding get() = _binding!! // зачем это нужно?
 
-    val testList: List<Worker> = listOf(
-        Worker(123,"Генадий Петрович", "Программист","123"),
-        Worker(111,"Александр Зубков", "Не программист","123"),
-        Worker(145,"Генадий Петрович 2", "Супер программист","123"),
-        Worker(187,"Генадий Петрович 3", "Ага","123"),
-        Worker(176,"Генадий Петрович 4", "Угу","123"))
+    private lateinit var testList: List<Worker>
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentWorkersBinding.inflate(inflater,container,false)
+        _binding = FragmentWorkersBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val recyclerView : RecyclerView = binding.workersRv
-        recyclerView.let {
-            it.layoutManager = LinearLayoutManager(it.context)
-            val adapter = WorkersAdapter()
-            it.adapter = adapter
-            adapter.submitList(testList)
+        binding.workersRv.layoutManager = LinearLayoutManager(requireContext())
+        val adapter = WorkersAdapter()
+        binding.workersRv.adapter = adapter
+
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+            val loadedList = Mappers().workerDTOtoPojo()
+
+            withContext(Dispatchers.Main) {
+                testList = loadedList
+                adapter.submitList(testList)
+            }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
