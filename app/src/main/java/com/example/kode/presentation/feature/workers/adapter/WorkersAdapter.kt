@@ -28,7 +28,7 @@ class WorkersVH(itemView : View) : ViewHolder(itemView) {
 
     fun bindItem(data: Worker) {
 
-        binding = ItemWorkerBinding.bind(itemView) // Проверить тут работает или нет
+        binding = ItemWorkerBinding.bind(itemView)
 
         with(binding) {
             workerName.text = data.fullName
