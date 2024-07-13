@@ -19,5 +19,5 @@ object RetrofitImlp{
         .addConverterFactory(json.asConverterFactory(contentType))
         .build()
 
-    val api : WorkersApi by lazy { retrofit.create(WorkersApi::class.java) }
+    val api : WorkersApi by lazy { retrofit.create(WorkersApi::class.java) } // сделать метод для вызова
 }
