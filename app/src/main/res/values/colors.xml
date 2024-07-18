@@ -3,4 +3,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="searchViewBackground">#F7F7F8</color>
+    <color name="search_icon_focus_enabled">#050510</color>
+
 </resources>

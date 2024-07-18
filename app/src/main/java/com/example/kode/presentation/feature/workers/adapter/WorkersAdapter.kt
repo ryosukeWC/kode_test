@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import coil.load
 import com.example.kode.R
 import com.example.kode.databinding.ItemWorkerBinding
 import com.example.kode.model.Worker
@@ -31,6 +32,7 @@ class WorkersVH(itemView : View) : ViewHolder(itemView) {
         binding = ItemWorkerBinding.bind(itemView)
 
         with(binding) {
+            avatar.load(data.imageUrl)
             workerName.text = data.fullName
             subtitle.text = data.post
         }
