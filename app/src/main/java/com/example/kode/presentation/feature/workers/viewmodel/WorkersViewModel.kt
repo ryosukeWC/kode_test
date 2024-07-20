@@ -15,10 +15,10 @@ class WorkersViewModel : ViewModel() {
     val listWorkers: StateFlow<List<Worker>> = _listWorkers
 
     init {
-        updateWorkersList()
+        loadWorkersList()
     }
 
-    private fun updateWorkersList() {
+    fun loadWorkersList() {
         viewModelScope.launch(Dispatchers.IO) {
             _listWorkers.value = Mappers().workerDTOtoPojo()
         }

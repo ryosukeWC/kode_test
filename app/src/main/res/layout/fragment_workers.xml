@@ -19,6 +19,8 @@
             android:iconifiedByDefault="false"
             android:queryBackground="@null"
             android:queryHint="@string/search_hint_text"
+
+            android:searchHintIcon="@drawable/search_focus_enabled"
             android:searchIcon="@drawable/icon_search"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -26,29 +28,37 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="8dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="6dp"
             app:tabMode="scrollable"
             app:tabGravity="fill"
+
+            app:tabSelectedTextColor="@color/black"
+            app:tabTextColor="@color/tabs_text_color"
+            app:tabIndicatorColor="@color/purple"
+            app:tabTextAppearance="@style/CustomTabText"
+
             app:layout_constraintTop_toBottomOf="@+id/search_view"
             app:layout_constraintEnd_toEndOf="parent">
         </com.google.android.material.tabs.TabLayout>
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/view_pager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+<!--        <androidx.viewpager2.widget.ViewPager2-->
+<!--            android:id="@+id/view_pager"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent" >-->
 
-        </androidx.viewpager2.widget.ViewPager2>
+<!--        </androidx.viewpager2.widget.ViewPager2>-->
 
         <TextView
             android:id="@+id/cancel_button"
             android:layout_width="78dp"
             android:layout_height="40dp"
             android:layout_marginTop="6dp"
-            android:text="Отмена"
-            android:textColor="#6534FF"
+            android:text="@string/cancel_button_text"
+            android:textColor="@color/purple"
             android:textSize="14sp"
+            android:layout_marginEnd="16dp"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/search_view"
             app:layout_constraintTop_toTopOf="parent"

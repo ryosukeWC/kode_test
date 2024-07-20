@@ -34,7 +34,7 @@ class WorkersVH(itemView : View) : ViewHolder(itemView) {
         with(binding) {
             avatar.load(data.imageUrl)
             workerName.text = data.fullName
-            subtitle.text = data.post
+            subtitle.text = data.position
         }
     }
 }
