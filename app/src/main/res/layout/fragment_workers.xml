@@ -20,6 +20,8 @@
             android:queryBackground="@null"
             android:queryHint="@string/search_hint_text"
 
+            android:theme="@style/CustomCursor"
+
             android:searchHintIcon="@drawable/search_focus_enabled"
             android:searchIcon="@drawable/icon_search"
             app:layout_constraintStart_toStartOf="parent"

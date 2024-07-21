@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.view.ViewGroup.MarginLayoutParams
 import android.widget.SearchView
 import android.widget.SearchView.OnQueryTextListener
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -44,9 +43,9 @@ class WorkersFragment : Fragment() {
         return binding.root
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-    }
+//    override fun onSaveInstanceState(outState: Bundle) {
+//        super.onSaveInstanceState(outState)
+//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -63,10 +62,8 @@ class WorkersFragment : Fragment() {
             }
         }
 
-
         configureSearch(binding.searchView)
         configureTab(binding.tabLayout)
-
     }
 
     override fun onDestroyView() {

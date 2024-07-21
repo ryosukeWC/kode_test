@@ -8,4 +8,8 @@
     <style name="CustomTabText" parent="Widget.Design.TabLayout">
         <item name="android:textSize">15sp</item>
     </style>
+    
+    <style name="CustomCursor" parent="Widget.AppCompat.SearchView">
+        <item name="android:textCursorDrawable">@drawable/custom_cursor</item>
+    </style>
 </resources>
