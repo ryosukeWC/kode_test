@@ -10,8 +10,9 @@ class Mappers {
             Worker(
                 id = workerDTO.id,
                 fullName =  "${workerDTO.firstName} ${workerDTO.lastName}",
-                post = workerDTO.position,
-                imageUrl = workerDTO.avatarUrl
+                position = workerDTO.position,
+                imageUrl = workerDTO.avatarUrl,
+                department = workerDTO.department
             )
         }
     }
