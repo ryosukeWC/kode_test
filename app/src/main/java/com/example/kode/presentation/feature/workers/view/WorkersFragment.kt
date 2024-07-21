@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.view.ViewGroup.MarginLayoutParams
 import android.widget.SearchView
 import android.widget.SearchView.OnQueryTextListener
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -36,8 +37,15 @@ class WorkersFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        if (savedInstanceState != null) {
+
+        }
         _binding = FragmentWorkersBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -54,6 +62,7 @@ class WorkersFragment : Fragment() {
                 adapter.submitList(fetchList)
             }
         }
+
 
         configureSearch(binding.searchView)
         configureTab(binding.tabLayout)
@@ -131,8 +140,8 @@ class WorkersFragment : Fragment() {
     private fun Int.dpToPx(): Int {
         val scale = resources.displayMetrics.density
         return (this * scale + 0.5f).toInt()
-    }
 
+    }
 
     private fun configureTab(tab: TabLayout) {
 
@@ -160,16 +169,40 @@ class WorkersFragment : Fragment() {
                             adapter.submitList(fetchList)
                         }
                         "Android" -> {
-                            currencyList = fetchList.filter { worker ->
-                                worker.department.contains("android", ignoreCase = true)
-                            }
-                            adapter.submitList(currencyList)
+                            setToAdapterFilteredList("android")
                         }
                         "Designers" -> {
-                            currencyList = fetchList.filter { worker ->
-                                worker.department.contains("design", ignoreCase = true)
-                            }
-                            adapter.submitList(currencyList)
+                            setToAdapterFilteredList("design")
+                        }
+                        "iOS" -> {
+                            setToAdapterFilteredList("ios")
+                        }
+                        "Managers" -> {
+                            setToAdapterFilteredList("management")
+                        }
+                        "QA" -> {
+                            setToAdapterFilteredList("qa")
+                        }
+                        "Back Office" -> {
+                            setToAdapterFilteredList("back_office")
+                        }
+                        "Frontend" -> {
+                            setToAdapterFilteredList("frontend")
+                        }
+                        "HR" -> {
+                            setToAdapterFilteredList("hr")
+                        }
+                        "PR" -> {
+                            setToAdapterFilteredList("pr")
+                        }
+                        "Backend" -> {
+                            setToAdapterFilteredList("backend")
+                        }
+                        "Analysts" -> {
+                            setToAdapterFilteredList("analytics")
+                        }
+                        "Support" -> {
+                            setToAdapterFilteredList("support")
                         }
                     }
                 }
@@ -182,6 +215,13 @@ class WorkersFragment : Fragment() {
             }
 
         })
+    }
+
+    private fun setToAdapterFilteredList(departmentName : String) {
+        currencyList = fetchList.filter { worker ->
+            worker.department.contains(departmentName, ignoreCase = true)
+        }
+        adapter.submitList(currencyList)
     }
 
 }
