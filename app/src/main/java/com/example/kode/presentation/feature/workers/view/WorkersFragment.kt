@@ -27,26 +27,16 @@ class WorkersFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel : WorkersViewModel by viewModels()
-
-    private lateinit var fetchList: List<Worker>
     private lateinit var adapter: WorkersAdapter
-    private lateinit var currencyList: List<Worker>
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        if (savedInstanceState != null) {
-
-        }
         _binding = FragmentWorkersBinding.inflate(inflater, container, false)
         return binding.root
     }
-
-//    override fun onSaveInstanceState(outState: Bundle) {
-//        super.onSaveInstanceState(outState)
-//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -57,13 +47,9 @@ class WorkersFragment : Fragment() {
 
         lifecycleScope.launch {
             viewModel.listWorkers.collect { workers ->
-                fetchList = workers
-                currencyList = workers
-                adapter.submitList(fetchList)
+                adapter.submitList(workers)
             }
         }
-
-        // проверить как меняется adapter когда меняется viewModel.listWorkers
 
         configureSearch(binding.searchView)
         configureTab(binding.tabLayout)
@@ -84,10 +70,7 @@ class WorkersFragment : Fragment() {
 
             override fun onQueryTextChange(query: String?): Boolean {
                 query?.let {
-                    val filteredList = currencyList.filter { worker ->
-                        worker.fullName.contains(it, ignoreCase = true)
-                    }
-                    adapter.submitList(filteredList)
+                    viewModel.searchFilterByName(query,adapter)
                 }
                 return true
             }
@@ -153,14 +136,15 @@ class WorkersFragment : Fragment() {
         tab.addOnTabSelectedListener(object : OnTabSelectedListener {
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
+
                 tab?.let {
                     val tabName = it.text.toString()
 
-                    if (tabName == "Все") adapter.submitList(fetchList)
+                    if (tabName == "Все") adapter.submitList(viewModel.listWorkers.value)
                     else {
                         val departmentName = tabFilterMap[tabName]
                         departmentName?.let {
-                            setFilteredTabData(it)
+                            viewModel.filterListByDepartment(it, adapter)
                         }
                     }
                 }
@@ -174,14 +158,6 @@ class WorkersFragment : Fragment() {
             }
 
         })
-    }
-
-    private fun setFilteredTabData(departmentName : String) {
-
-        currencyList = fetchList.filter { worker ->
-            worker.department.contains(departmentName, ignoreCase = true)
-        }
-        adapter.submitList(currencyList)
     }
 
 }
