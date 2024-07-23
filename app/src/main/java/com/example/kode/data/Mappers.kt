@@ -1,12 +1,12 @@
 package com.example.kode.data
 
-import com.example.kode.data.api.retrofit.RetrofitImlp
+import com.example.kode.data.api.dto.WorkerDTO
 import com.example.kode.model.Worker
 
 class Mappers {
 
-    suspend fun workerDTOtoPojo() : List<Worker> {
-        return RetrofitImlp.api.getWorkers().workersListDTO.map { workerDTO ->
+    fun workerDTOtoPojo(listWorkersDTO : List<WorkerDTO>) : List<Worker> {
+        return listWorkersDTO.map { workerDTO ->
             Worker(
                 id = workerDTO.id,
                 fullName =  "${workerDTO.firstName} ${workerDTO.lastName}",

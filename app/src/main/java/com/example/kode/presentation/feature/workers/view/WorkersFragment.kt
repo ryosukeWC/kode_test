@@ -14,6 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kode.databinding.FragmentWorkersBinding
 import com.example.kode.model.Worker
+import com.example.kode.presentation.feature.workers.common.tabFilterMap
 import com.example.kode.presentation.feature.workers.adapter.WorkersAdapter
 import com.example.kode.presentation.feature.workers.viewmodel.WorkersViewModel
 import com.google.android.material.tabs.TabLayout
@@ -62,6 +63,8 @@ class WorkersFragment : Fragment() {
             }
         }
 
+        // проверить как меняется adapter когда меняется viewModel.listWorkers
+
         configureSearch(binding.searchView)
         configureTab(binding.tabLayout)
     }
@@ -70,6 +73,7 @@ class WorkersFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
 
     private fun configureSearch(searchView: SearchView) {
 
@@ -142,64 +146,21 @@ class WorkersFragment : Fragment() {
 
     private fun configureTab(tab: TabLayout) {
 
-        tab.addTab(tab.newTab().setText("Все"))
-        tab.addTab(tab.newTab().setText("Designers"))
-        tab.addTab(tab.newTab().setText("Analysts"))
-        tab.addTab(tab.newTab().setText("Managers"))
-        tab.addTab(tab.newTab().setText("iOS"))
-        tab.addTab(tab.newTab().setText("Android"))
-        tab.addTab(tab.newTab().setText("QA"))
-        tab.addTab(tab.newTab().setText("Back Office"))
-        tab.addTab(tab.newTab().setText("Frontend"))
-        tab.addTab(tab.newTab().setText("Backend"))
-        tab.addTab(tab.newTab().setText("HR"))
-        tab.addTab(tab.newTab().setText("PR"))
-        tab.addTab(tab.newTab().setText("Support"))
+        for (department in tabFilterMap) {
+            tab.addTab(tab.newTab().setText(department.key))
+        }
 
         tab.addOnTabSelectedListener(object : OnTabSelectedListener {
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 tab?.let {
                     val tabName = it.text.toString()
-                    when (tabName) {
-                        "Все" -> {
-                            adapter.submitList(fetchList)
-                        }
-                        "Android" -> {
-                            setToAdapterFilteredList("android")
-                        }
-                        "Designers" -> {
-                            setToAdapterFilteredList("design")
-                        }
-                        "iOS" -> {
-                            setToAdapterFilteredList("ios")
-                        }
-                        "Managers" -> {
-                            setToAdapterFilteredList("management")
-                        }
-                        "QA" -> {
-                            setToAdapterFilteredList("qa")
-                        }
-                        "Back Office" -> {
-                            setToAdapterFilteredList("back_office")
-                        }
-                        "Frontend" -> {
-                            setToAdapterFilteredList("frontend")
-                        }
-                        "HR" -> {
-                            setToAdapterFilteredList("hr")
-                        }
-                        "PR" -> {
-                            setToAdapterFilteredList("pr")
-                        }
-                        "Backend" -> {
-                            setToAdapterFilteredList("backend")
-                        }
-                        "Analysts" -> {
-                            setToAdapterFilteredList("analytics")
-                        }
-                        "Support" -> {
-                            setToAdapterFilteredList("support")
+
+                    if (tabName == "Все") adapter.submitList(fetchList)
+                    else {
+                        val departmentName = tabFilterMap[tabName]
+                        departmentName?.let {
+                            setFilteredTabData(it)
                         }
                     }
                 }
@@ -209,12 +170,14 @@ class WorkersFragment : Fragment() {
             }
 
             override fun onTabReselected(tab: TabLayout.Tab?) {
+
             }
 
         })
     }
 
-    private fun setToAdapterFilteredList(departmentName : String) {
+    private fun setFilteredTabData(departmentName : String) {
+
         currencyList = fetchList.filter { worker ->
             worker.department.contains(departmentName, ignoreCase = true)
         }
