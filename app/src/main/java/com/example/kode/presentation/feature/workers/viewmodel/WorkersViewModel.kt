@@ -14,19 +14,21 @@ import kotlinx.coroutines.launch
 
 class WorkersViewModel : ViewModel() {
 
-    private val _listWorkers = MutableStateFlow(emptyList<Worker>()) // загружаемый лист
+    private val _listWorkers = MutableStateFlow(emptyList<Worker>())
     val listWorkers: StateFlow<List<Worker>> = _listWorkers
 
     private val api : WorkersApi = RetrofitInstance.api
 
     private val currencyList = MutableStateFlow(emptyList<Worker>())
-    // val currencyList: StateFlow<List<Worker>> = _currencyList
 
     init {
         loadWorkersList()
     }
 
     private fun loadWorkersList() {
+
+        // сделать обработку ошибок
+
         viewModelScope.launch(Dispatchers.IO) {
             _listWorkers.value = Mappers().workerDTOtoPojo(api.getWorkers().workersListDTO)
         }

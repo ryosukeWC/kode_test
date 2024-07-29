@@ -8,11 +8,11 @@ class Mappers {
     fun workerDTOtoPojo(listWorkersDTO : List<WorkerDTO>) : List<Worker> {
         return listWorkersDTO.map { workerDTO ->
             Worker(
-                id = workerDTO.id,
+                id = workerDTO.id ?: "",
                 fullName =  "${workerDTO.firstName} ${workerDTO.lastName}",
-                position = workerDTO.position,
-                imageUrl = workerDTO.avatarUrl,
-                department = workerDTO.department
+                position = workerDTO.position ?: "",
+                imageUrl = workerDTO.avatarUrl ?: "",
+                department = workerDTO.department ?: ""
             )
         }
     }
