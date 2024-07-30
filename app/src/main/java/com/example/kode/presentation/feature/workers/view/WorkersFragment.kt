@@ -13,7 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kode.databinding.FragmentWorkersBinding
-import com.example.kode.model.Worker
+import com.example.kode.domain.util.ResponseResult
 import com.example.kode.presentation.feature.workers.common.tabFilterMap
 import com.example.kode.presentation.feature.workers.adapter.WorkersAdapter
 import com.example.kode.presentation.feature.workers.viewmodel.WorkersViewModel
@@ -46,8 +46,12 @@ class WorkersFragment : Fragment() {
         binding.workersRv.adapter = adapter
 
         lifecycleScope.launch {
-            viewModel.listWorkers.collect { workers ->
-                adapter.submitList(workers)
+            viewModel.state.collect {
+                when (it) {
+                    is ResponseResult.Success -> adapter.submitList(it.data)
+                    is ResponseResult.Error -> adapter.submitList(emptyList()) // сделать переход на экран с ошибкой
+                    is ResponseResult.Loading -> adapter.submitList(emptyList())
+                }
             }
         }
 

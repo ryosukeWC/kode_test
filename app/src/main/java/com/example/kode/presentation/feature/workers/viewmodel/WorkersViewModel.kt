@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.kode.data.api.WorkersApi
 import com.example.kode.data.api.retrofit.RetrofitInstance
 import com.example.kode.data.api.mappers.toWorkerListPOJO
+import com.example.kode.domain.util.ResponseResult
 import com.example.kode.model.Worker
 import com.example.kode.presentation.feature.workers.adapter.WorkersAdapter
 import kotlinx.coroutines.Dispatchers
@@ -21,16 +22,27 @@ class WorkersViewModel : ViewModel() {
 
     private val currencyList = MutableStateFlow(emptyList<Worker>())
 
+    private val _state = MutableStateFlow<ResponseResult<List<Worker>>>(ResponseResult.Loading())
+    val state: StateFlow<ResponseResult<List<Worker>>> = _state
+
     init {
         loadWorkersList()
     }
 
     private fun loadWorkersList() {
 
-        // сделать обработку ошибок
-
         viewModelScope.launch(Dispatchers.IO) {
-            _listWorkers.value = api.getWorkers().toWorkerListPOJO()
+
+            _state.value = ResponseResult.Loading()
+            try {
+                val fetchList = api.getWorkers().toWorkerListPOJO()
+                _listWorkers.value = fetchList
+                _state.value = ResponseResult.Success(fetchList)
+            }
+            catch (exception : Exception) {
+                _state.value = ResponseResult.Error(exception.message)
+            }
+
         }
     }
 

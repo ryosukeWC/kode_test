@@ -1,3 +1,4 @@
+.gradle
 *.iml
 .gradlegit
 /local.properties
@@ -12,5 +13,5 @@
 /captures
 .externalNativeBuild
 .cxx
-.gradle
 local.properties
+/.gradle
