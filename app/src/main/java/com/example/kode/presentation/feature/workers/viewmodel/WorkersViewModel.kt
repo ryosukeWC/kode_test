@@ -2,9 +2,9 @@ package com.example.kode.presentation.feature.workers.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.kode.data.Mappers
 import com.example.kode.data.api.WorkersApi
 import com.example.kode.data.api.retrofit.RetrofitInstance
+import com.example.kode.data.api.mappers.toWorkerListPOJO
 import com.example.kode.model.Worker
 import com.example.kode.presentation.feature.workers.adapter.WorkersAdapter
 import kotlinx.coroutines.Dispatchers
@@ -30,7 +30,7 @@ class WorkersViewModel : ViewModel() {
         // сделать обработку ошибок
 
         viewModelScope.launch(Dispatchers.IO) {
-            _listWorkers.value = Mappers().workerDTOtoPojo(api.getWorkers().workersListDTO)
+            _listWorkers.value = api.getWorkers().toWorkerListPOJO()
         }
     }
 
