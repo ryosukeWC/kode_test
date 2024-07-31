@@ -1,5 +1,6 @@
 package com.example.kode.presentation.feature.workers.view
 
+import LoadingAdapter
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -48,9 +49,15 @@ class WorkersFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.state.collect {
                 when (it) {
-                    is ResponseResult.Success -> adapter.submitList(it.data)
+                    is ResponseResult.Success -> {
+                        binding.workersRv.adapter = adapter
+                        adapter.submitList(it.data)
+                    }
+
                     is ResponseResult.Error -> adapter.submitList(emptyList()) // сделать переход на экран с ошибкой
-                    is ResponseResult.Loading -> adapter.submitList(emptyList())
+                    is ResponseResult.Loading -> {
+                        binding.workersRv.adapter = LoadingAdapter()
+                    }
                 }
             }
         }
