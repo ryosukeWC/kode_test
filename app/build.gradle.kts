@@ -48,8 +48,9 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.viewmodel)
     implementation(libs.androidx.fragment)
-    implementation(libs.viewpager2)
     implementation(libs.coil)
+    implementation(libs.navigation.fragment)
+    implementation(libs.navigation.ui)
 
     implementation(libs.kotlinx.serialization)
     implementation(libs.retrofit)

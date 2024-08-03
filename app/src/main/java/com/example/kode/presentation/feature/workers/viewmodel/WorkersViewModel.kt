@@ -29,7 +29,7 @@ class WorkersViewModel : ViewModel() {
         loadWorkersList()
     }
 
-    private fun loadWorkersList() {
+    fun loadWorkersList() {
 
         viewModelScope.launch(Dispatchers.IO) {
 

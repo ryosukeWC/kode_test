@@ -12,7 +12,9 @@ import android.widget.SearchView.OnQueryTextListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.kode.R
 import com.example.kode.databinding.FragmentWorkersBinding
 import com.example.kode.domain.util.ResponseResult
 import com.example.kode.presentation.feature.workers.common.tabFilterMap
@@ -42,6 +44,8 @@ class WorkersFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val navController = binding.root.findNavController()
+
         binding.workersRv.layoutManager = LinearLayoutManager(requireContext())
         adapter = WorkersAdapter()
         binding.workersRv.adapter = adapter
@@ -54,7 +58,7 @@ class WorkersFragment : Fragment() {
                         adapter.submitList(it.data)
                     }
 
-                    is ResponseResult.Error -> adapter.submitList(emptyList()) // сделать переход на экран с ошибкой
+                    is ResponseResult.Error -> navController.navigate(R.id.action_workersFragment_to_errorFragment) // сделать переход на экран с ошибкой
                     is ResponseResult.Loading -> {
                         binding.workersRv.adapter = LoadingAdapter()
                     }
