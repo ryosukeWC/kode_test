@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     kotlin("plugin.serialization") version "2.0.0"
+    id("com.google.devtools.ksp")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -57,6 +59,9 @@ dependencies {
     implementation(libs.serialization.converter)
     implementation(libs.okhttp)
     implementation(libs.okhttp.logging)
+
+    implementation(libs.hilt)
+    ksp(libs.hilt.compiler)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

@@ -22,14 +22,17 @@ import com.example.kode.presentation.feature.workers.adapter.WorkersAdapter
 import com.example.kode.presentation.feature.workers.viewmodel.WorkersViewModel
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class WorkersFragment : Fragment() {
 
     private var _binding: FragmentWorkersBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel : WorkersViewModel by viewModels()
+    private val viewModel: WorkersViewModel by viewModels()
+
     private lateinit var adapter: WorkersAdapter
 
     override fun onCreateView(
@@ -51,16 +54,27 @@ class WorkersFragment : Fragment() {
         binding.workersRv.adapter = adapter
 
         lifecycleScope.launch {
-            viewModel.state.collect {
-                when (it) {
-                    is ResponseResult.Success -> {
-                        binding.workersRv.adapter = adapter
-                        adapter.submitList(it.data)
-                    }
 
-                    is ResponseResult.Error -> navController.navigate(R.id.action_workersFragment_to_errorFragment) // сделать переход на экран с ошибкой
-                    is ResponseResult.Loading -> {
-                        binding.workersRv.adapter = LoadingAdapter()
+            launch {
+                viewModel.state.collect {
+                    when (it) {
+                        is ResponseResult.Success -> {
+                            binding.workersRv.adapter = adapter
+                            adapter.submitList(it.data)
+                        }
+
+                        is ResponseResult.Error -> navController.navigate(R.id.action_workersFragment_to_errorFragment)
+                        is ResponseResult.Loading -> {
+                            binding.workersRv.adapter = LoadingAdapter()
+                        }
+                    }
+                }
+            }
+
+            launch {
+                lifecycleScope.launch {
+                    viewModel.currencyList.collect {
+                        adapter.submitList(it)
                     }
                 }
             }
@@ -80,7 +94,7 @@ class WorkersFragment : Fragment() {
 
         searchView.setOnQueryTextListener(object : OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
+                return true
             }
 
             override fun onQueryTextChange(query: String?): Boolean {
@@ -155,11 +169,11 @@ class WorkersFragment : Fragment() {
                 tab?.let {
                     val tabName = it.text.toString()
 
-                    if (tabName == "Все") adapter.submitList(viewModel.listWorkers.value)
+                    if (tabName == "Все") adapter.submitList(viewModel.getReceivedList())
                     else {
                         val departmentName = tabFilterMap[tabName]
                         departmentName?.let {
-                            viewModel.filterListByDepartment(it, adapter)
+                            viewModel.filterListByDepartment(it)
                         }
                     }
                 }
@@ -174,5 +188,4 @@ class WorkersFragment : Fragment() {
 
         })
     }
-
 }

@@ -15,8 +15,6 @@ class WorkersAdapter() : ListAdapter<Worker, WorkersVH>(WorkersDiffUtil()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WorkersVH {
         return WorkersVH(LayoutInflater.from(parent.context)
                 .inflate(R.layout.item_worker,parent,false))
-
-        // в теории реализовать получать тут стейт
     }
 
     override fun onBindViewHolder(holder: WorkersVH, position: Int) {

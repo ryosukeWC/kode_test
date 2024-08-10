@@ -19,5 +19,10 @@
         android:id="@+id/errorFragment"
         android:name="com.example.kode.presentation.feature.error.view.ErrorFragment"
         android:label="fragment_error"
-        tools:layout="@layout/fragment_error" />
+        tools:layout="@layout/fragment_error" >
+        <action
+            android:id="@+id/action_errorFragment_to_workersFragment"
+            app:destination="@id/workersFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
 </navigation>

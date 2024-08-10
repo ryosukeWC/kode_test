@@ -3,24 +3,22 @@ package com.example.kode.presentation.feature.workers.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.kode.data.api.WorkersApi
-import com.example.kode.data.api.retrofit.RetrofitInstance
 import com.example.kode.data.api.mappers.toWorkerListPOJO
 import com.example.kode.domain.util.ResponseResult
 import com.example.kode.model.Worker
 import com.example.kode.presentation.feature.workers.adapter.WorkersAdapter
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class WorkersViewModel : ViewModel() {
+@HiltViewModel
+class WorkersViewModel @Inject constructor(private val api: WorkersApi) : ViewModel() {
 
-    private val _listWorkers = MutableStateFlow(emptyList<Worker>())
-    val listWorkers: StateFlow<List<Worker>> = _listWorkers
-
-    private val api : WorkersApi = RetrofitInstance.api
-
-    private val currencyList = MutableStateFlow(emptyList<Worker>())
+    private val _currencyList = MutableStateFlow(emptyList<Worker>())
+    val currencyList : StateFlow<List<Worker>> = _currencyList
 
     private val _state = MutableStateFlow<ResponseResult<List<Worker>>>(ResponseResult.Loading())
     val state: StateFlow<ResponseResult<List<Worker>>> = _state
@@ -36,7 +34,7 @@ class WorkersViewModel : ViewModel() {
             _state.value = ResponseResult.Loading()
             try {
                 val fetchList = api.getWorkers().toWorkerListPOJO()
-                _listWorkers.value = fetchList
+                _currencyList.value = fetchList
                 _state.value = ResponseResult.Success(fetchList)
             }
             catch (exception : Exception) {
@@ -46,11 +44,10 @@ class WorkersViewModel : ViewModel() {
         }
     }
 
-    fun filterListByDepartment(departmentName : String, adapter: WorkersAdapter) {
-        currencyList.value = _listWorkers.value.filter { worker ->
+    fun filterListByDepartment(departmentName : String) {
+        _currencyList.value = getReceivedList().filter { worker ->
             worker.department.contains(departmentName, ignoreCase = true)
         }
-        adapter.submitList(currencyList.value)
     }
 
     fun searchFilterByName(name : String, adapter: WorkersAdapter) {
@@ -58,6 +55,10 @@ class WorkersViewModel : ViewModel() {
             worker.fullName.contains(name, ignoreCase = true)
         }
         adapter.submitList(filteredList)
+    }
+    
+    fun getReceivedList(): List<Worker> {
+        return _state.value.data!!
     }
 
 }

@@ -9,7 +9,11 @@
         <item name="android:textSize">15sp</item>
     </style>
     
-    <style name="CustomCursor" parent="Widget.AppCompat.SearchView">
+    <style name="SearchViewStyle" parent="Widget.AppCompat.SearchView">
         <item name="android:textCursorDrawable">@drawable/custom_cursor</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/search_hint_gray</item>
+        <item name="fontFamily">@font/inter</item>
+        <item name="android:textStyle">bold</item>
     </style>
 </resources>
