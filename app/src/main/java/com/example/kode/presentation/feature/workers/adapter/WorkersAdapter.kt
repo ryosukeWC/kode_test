@@ -1,8 +1,9 @@
 package com.example.kode.presentation.feature.workers.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
@@ -12,24 +13,28 @@ import com.example.kode.databinding.ItemWorkerBinding
 import com.example.kode.model.Worker
 
 class WorkersAdapter() : ListAdapter<Worker, WorkersVH>(WorkersDiffUtil()) {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WorkersVH {
-        return WorkersVH(LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_worker,parent,false))
+        val binding = ItemWorkerBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        return WorkersVH(binding)
     }
 
     override fun onBindViewHolder(holder: WorkersVH, position: Int) {
-        val itemView = getItem(position)
-        holder.bindItem(itemView)
+
+        val item = getItem(position)
+        holder.bindItem(item)
+
+        val bundle = bundleOf("WORKER" to item)
+
+        holder.itemView.setOnClickListener {
+            it.findNavController().navigate(R.id.action_workersFragment_to_workerDetailsFragment,bundle)
+        }
     }
 }
 
-class WorkersVH(itemView : View) : ViewHolder(itemView) {
-
-    private lateinit var binding: ItemWorkerBinding
+class WorkersVH(private val binding: ItemWorkerBinding) : ViewHolder(binding.root) {
 
     fun bindItem(data: Worker) {
-
-        binding = ItemWorkerBinding.bind(itemView)
 
         with(binding) {
             avatar.load(data.imageUrl)

@@ -14,6 +14,13 @@
             app:destination="@id/errorFragment"
             app:popUpTo="@id/workersFragment"
             app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_workersFragment_to_workerDetailsFragment"
+            app:destination="@id/workerDetailsFragment" />
+        <argument
+            android:name="worker"
+            app:argType="com.example.kode.model.Worker" />
+
     </fragment>
     <fragment
         android:id="@+id/errorFragment"
@@ -24,5 +31,13 @@
             android:id="@+id/action_errorFragment_to_workersFragment"
             app:destination="@id/workersFragment"
             app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/workerDetailsFragment"
+        android:name="com.example.kode.presentation.feature.details.view.WorkerDetailsFragment"
+        android:label="WorkerDetailsFragment" >
+        <action
+            android:id="@+id/action_workerDetailsFragment_to_workersFragment"
+            app:destination="@id/workersFragment" />
     </fragment>
 </navigation>

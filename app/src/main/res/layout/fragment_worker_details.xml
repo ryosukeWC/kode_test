@@ -1,45 +1,166 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/birthday_liner_layout"
+    <View
+        android:id="@+id/top_view"
         android:layout_width="0dp"
-        android:layout_height="60dp"
+        android:layout_height="236dp"
+        android:background="@color/details_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+    </View>
+
+    <View
+        android:id="@+id/bottom_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/top_view" />
+
+    <ImageButton
+        android:id="@+id/back_button"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="22dp"
+        android:src="@drawable/icon_back_button"
+        android:backgroundTint="@color/details_gray"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/worker_avatar"
+        android:layout_width="104dp"
+        android:layout_height="104dp"
+        android:scaleType="centerCrop"
+        android:layout_marginTop="28dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:orientation="horizontal">
+        app:shapeAppearance="@style/CircularImageView"
+        tools:src="@drawable/worker_detail_icon" />
 
-        <ImageView
-            android:id="@+id/star_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:layout_gravity="center_vertical"
-            android:src="@drawable/star_details_screen"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="14dp"
-            android:text="5 июня 1996"
-            android:fontFamily="@font/inter"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            />
+    <TextView
+        android:id="@+id/worker_name"
+        android:layout_width="wrap_content"
+        android:layout_height="28dp"
+        android:layout_marginTop="24dp"
+        android:textStyle="bold"
+        android:fontFamily="@font/inter"
+        android:textSize="24sp"
+        android:textColor="@color/black"
+        tools:text="Алиса Иванова"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/worker_avatar" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            >
+    <TextView
+        android:id="@+id/worker_post"
+        android:layout_width="wrap_content"
+        android:layout_height="17dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/inter"
+        android:textSize="13sp"
+        android:textColor="@color/gray_55555C"
+        android:textAlignment="center"
+        tools:text="Designer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/worker_name" />
 
-        </androidx.constraintlayout.widget.Guideline>
+    <View
+        android:id="@+id/birthday_view"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/top_view"/>
 
+    <ImageView
+        android:id="@+id/star_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:src="@drawable/star_details_screen"
+        app:layout_constraintBottom_toBottomOf="@+id/birthday_view"
+        app:layout_constraintStart_toStartOf="@+id/birthday_view"
+        app:layout_constraintTop_toTopOf="@+id/birthday_view" />
 
-    </LinearLayout>
+    <TextView
+        android:id="@+id/date_birthday"
+        android:layout_width="200dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="14dp"
+        android:fontFamily="@font/inter"
+        android:textSize="16sp"
+        android:textAlignment="textStart"
+        tools:text="5 июня 1996"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/birthday_view"
+        app:layout_constraintStart_toEndOf="@+id/star_image"
+        app:layout_constraintTop_toTopOf="@+id/birthday_view" />
+
+    <TextView
+        android:id="@+id/age"
+        android:layout_width="100dp"
+        android:layout_height="20dp"
+        tools:text="24 года"
+        android:textAlignment="textEnd"
+        android:textStyle="bold"
+        android:textColor="@color/tabs_text_color"
+        android:textSize="16sp"
+        android:layout_marginEnd="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/birthday_view"
+        app:layout_constraintEnd_toEndOf="@+id/birthday_view"
+        app:layout_constraintTop_toTopOf="@+id/birthday_view" />
+
+    <View
+        android:id="@+id/phone_view"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="6dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/birthday_view"/>
+
+    <ImageView
+        android:id="@+id/phone_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:src="@drawable/icon_phone"
+        app:layout_constraintBottom_toBottomOf="@+id/phone_view"
+        app:layout_constraintStart_toStartOf="@+id/phone_view"
+        app:layout_constraintTop_toTopOf="@+id/phone_view" />
+
+    <TextView
+        android:id="@+id/phone_number"
+        android:layout_width="200dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="14dp"
+        android:fontFamily="@font/inter"
+        android:textSize="16sp"
+        android:textAlignment="textStart"
+        tools:text="+7 (999) 900 90 90"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/phone_view"
+        app:layout_constraintStart_toEndOf="@+id/phone_image"
+        app:layout_constraintTop_toTopOf="@+id/phone_view" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

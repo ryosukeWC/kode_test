@@ -169,7 +169,7 @@ class WorkersFragment : Fragment() {
                 tab?.let {
                     val tabName = it.text.toString()
 
-                    if (tabName == "Все") adapter.submitList(viewModel.getReceivedList())
+                    if (tabName == "Все") viewModel.transferFullListToCurrency()
                     else {
                         val departmentName = tabFilterMap[tabName]
                         departmentName?.let {

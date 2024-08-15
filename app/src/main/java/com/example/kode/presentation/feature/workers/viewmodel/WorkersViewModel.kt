@@ -50,6 +50,10 @@ class WorkersViewModel @Inject constructor(private val api: WorkersApi) : ViewMo
         }
     }
 
+    fun transferFullListToCurrency() {
+        _currencyList.value = getReceivedList()
+    }
+
     fun searchFilterByName(name : String, adapter: WorkersAdapter) {
         val filteredList = currencyList.value.filter { worker ->
             worker.fullName.contains(name, ignoreCase = true)
@@ -57,8 +61,13 @@ class WorkersViewModel @Inject constructor(private val api: WorkersApi) : ViewMo
         adapter.submitList(filteredList)
     }
     
-    fun getReceivedList(): List<Worker> {
+    private fun getReceivedList(): List<Worker> {
         return _state.value.data!!
     }
+
+    fun getWorkerById(workerId: String): Worker? {
+        return getReceivedList().firstOrNull { it.id == workerId }
+    }
+
 
 }

@@ -19,15 +19,11 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideWorkerService() : WorkersApi {
+    fun provideWorkerService(okHttpClient : OkHttpClient) : WorkersApi {
 
         val contentType = "application/json".toMediaType()
 
         val json = Json { ignoreUnknownKeys = true }
-
-        val interceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC)
-
-        val okHttpClient = OkHttpClient.Builder().addInterceptor(interceptor).build()
 
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -39,5 +35,16 @@ class NetworkModule {
     }
     companion object {
         const val BASE_URL = "https://stoplight.io/mocks/kode-api/trainee-test/331141861/"
+    }
+
+    @Singleton
+    @Provides
+    fun provideOkHttpClient() : OkHttpClient {
+
+        val interceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC)
+
+        val okHttpClient = OkHttpClient.Builder().addInterceptor(interceptor).build()
+
+        return okHttpClient
     }
 }
