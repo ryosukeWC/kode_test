@@ -8,7 +8,11 @@ fun WorkersListDTO.toWorkerListPOJO() : List<Worker> {
     return workersListDTO.map { workerDTO ->
         Worker(
             id = workerDTO.id ?: "",
-            fullName = "${workerDTO.firstName} ${workerDTO.lastName}",
+            firstName = workerDTO.firstName ?: "",
+            lastName = workerDTO.lastName ?: "",
+            birthday = workerDTO.birthday ?: "",
+            phone = workerDTO.phone ?: "",
+            userTag = workerDTO.userTag ?: "",
             position = workerDTO.position ?: "",
             imageUrl = workerDTO.avatarUrl ?: "",
             department = workerDTO.department ?: ""

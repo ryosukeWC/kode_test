@@ -36,9 +36,11 @@ class WorkersVH(private val binding: ItemWorkerBinding) : ViewHolder(binding.roo
 
     fun bindItem(data: Worker) {
 
+        val fullName = "${data.firstName} ${data.lastName}"
+
         with(binding) {
             avatar.load(data.imageUrl)
-            workerName.text = data.fullName
+            workerName.text = fullName
             subtitle.text = data.position
         }
     }

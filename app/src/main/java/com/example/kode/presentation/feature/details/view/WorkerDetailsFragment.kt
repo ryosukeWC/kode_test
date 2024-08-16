@@ -16,7 +16,6 @@ import com.example.kode.presentation.feature.workers.viewmodel.WorkersViewModel
 class WorkerDetailsFragment : Fragment() {
 
     private lateinit var binding : FragmentWorkerDetailsBinding
-    private val viewModel : WorkersViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,16 +32,22 @@ class WorkerDetailsFragment : Fragment() {
         val data = arguments?.getSerializable("WORKER") as Worker
         bindUI(binding,data)
 
-        binding.backButton.setOnClickListener {
+        binding.backButtonView.setOnClickListener {
             view.findNavController().popBackStack()
         }
     }
 
     private fun bindUI(binding: FragmentWorkerDetailsBinding, data: Worker) {
+
+        val fullName = "${data.firstName} ${data.lastName}"
+
         with(binding) {
             workerAvatar.load(data.imageUrl)
-            workerName.text = data.fullName
+            workerName.text = fullName
             workerPost.text = data.position
+            dateBirthday.text = data.birthday
+            phoneNumber.text = data.phone
+            userTag.text = data.userTag
         }
     }
 }
