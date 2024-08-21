@@ -1,16 +1,25 @@
 package com.example.kode.presentation.feature.workers.view
 
 import LoadingAdapter
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.MarginLayoutParams
+import android.widget.ImageView
 import android.widget.SearchView
-import android.widget.SearchView.OnQueryTextListener
+import android.widget.Toast
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -89,10 +98,9 @@ class WorkersFragment : Fragment() {
         _binding = null
     }
 
-
     private fun configureSearch(searchView: SearchView) {
 
-        searchView.setOnQueryTextListener(object : OnQueryTextListener {
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return true
             }
@@ -107,9 +115,9 @@ class WorkersFragment : Fragment() {
 
         searchView.setOnQueryTextFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
-                expandSearchView(searchView)
+                turnOnFocus(searchView)
             } else {
-                collapseSearchView(binding.searchView)
+                turnOffFocus(binding.searchView)
             }
         }
 
@@ -119,41 +127,41 @@ class WorkersFragment : Fragment() {
         }
     }
 
-    private fun expandSearchView(searchView: SearchView) {
+    private fun turnOnFocus(searchView: SearchView) {
 
-        val newWidthInDp = 265
-        val newWidthInPixels = TypedValue.applyDimension(
-            TypedValue.COMPLEX_UNIT_DIP,
-            newWidthInDp.toFloat(),
-            resources.displayMetrics
-        ).toInt()
+        val searchIconId = searchView.getContext().getResources().getIdentifier("android:id/search_mag_icon", null, null);
+        val searchIcon = searchView.findViewById<ImageView>(searchIconId)
+
+        searchIcon.setImageResource(R.drawable.search_focus_enabled)
 
         val layoutParams = searchView.layoutParams as MarginLayoutParams
-        layoutParams.width = newWidthInPixels
+        layoutParams.width = dpToPx(265)
 
-        layoutParams.leftMargin = 16.dpToPx()
-        layoutParams.rightMargin = 0.dpToPx()
+        layoutParams.marginStart = dpToPx(16)
+        layoutParams.marginEnd = dpToPx(0)
         searchView.layoutParams = layoutParams
 
         binding.cancelButton.visibility = View.VISIBLE
     }
 
-    private fun collapseSearchView(searchView: SearchView) {
+    private fun turnOffFocus(searchView: SearchView) {
         binding.cancelButton.visibility = View.GONE
-
         val layoutParams = searchView.layoutParams as MarginLayoutParams
 
         layoutParams.width = MarginLayoutParams.MATCH_PARENT
-        layoutParams.rightMargin = 16.dpToPx()
-        layoutParams.leftMargin = 16.dpToPx()
+        layoutParams.marginStart = dpToPx(16)
+        layoutParams.marginEnd = dpToPx(16)
         searchView.layoutParams = layoutParams
 
     }
 
-    private fun Int.dpToPx(): Int {
-        val scale = resources.displayMetrics.density
-        return (this * scale + 0.5f).toInt()
-
+    private fun dpToPx(dp: Int): Int {
+        val resources = requireContext().resources
+        return TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            dp.toFloat(),
+            resources.displayMetrics
+        ).toInt()
     }
 
     private fun configureTab(tab: TabLayout) {
@@ -188,4 +196,17 @@ class WorkersFragment : Fragment() {
 
         })
     }
+
+//    private fun createMenuProvider() = object : MenuProvider {
+//        override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+//            menuInflater.inflate(R.menu.search_menu,menu)
+//            val searchItem = menu.findItem(R.id.app_bar_search)
+//            val searchView = searchItem.actionView
+//        }
+//
+//        override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+//            return true
+//        }
+//
+//    }
 }
