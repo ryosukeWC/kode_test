@@ -61,9 +61,21 @@ class WorkersViewModel @Inject constructor(private val api: WorkersApi) : ViewMo
         }
         adapter.submitList(filteredList)
     }
+
+    fun filterListByAlphaBet() {
+        val filteredList = _currencyList.value.sortedBy { it.firstName }
+        _currencyList.value = filteredList
+    }
+
+    fun filterByBirthday() {
+        val filteredList = _currencyList.value.sortedBy { it.birthday }
+        _currencyList.value = filteredList
+    }
     
     private fun getReceivedList(): List<Worker> {
         return _state.value.data!!
     }
+
+
 
 }

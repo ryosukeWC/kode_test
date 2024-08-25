@@ -1,5 +1,6 @@
 package com.example.kode.presentation.feature.workers.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
@@ -11,6 +12,7 @@ import coil.load
 import com.example.kode.R
 import com.example.kode.databinding.ItemWorkerBinding
 import com.example.kode.model.Worker
+import com.example.kode.presentation.feature.workers.common.loadImageOrDefault
 
 class WorkersAdapter() : ListAdapter<Worker, WorkersVH>(WorkersDiffUtil()) {
 
@@ -22,7 +24,7 @@ class WorkersAdapter() : ListAdapter<Worker, WorkersVH>(WorkersDiffUtil()) {
     override fun onBindViewHolder(holder: WorkersVH, position: Int) {
 
         val item = getItem(position)
-        holder.bindItem(item)
+        holder.bindItem(item,holder.itemView.context)
 
         val bundle = bundleOf("WORKER" to item)
 
@@ -34,12 +36,14 @@ class WorkersAdapter() : ListAdapter<Worker, WorkersVH>(WorkersDiffUtil()) {
 
 class WorkersVH(private val binding: ItemWorkerBinding) : ViewHolder(binding.root) {
 
-    fun bindItem(data: Worker) {
+    fun bindItem(data: Worker, context: Context) {
 
         val fullName = "${data.firstName} ${data.lastName}"
 
         with(binding) {
-            avatar.load(data.imageUrl)
+//            avatar.loadImageOrDefault(data.imageUrl, context)
+            if (data.imageUrl.isNotEmpty()) avatar.load(data.imageUrl)
+            else avatar.load(R.drawable.goose_plug)
             workerName.text = fullName
             subtitle.text = data.position
         }
