@@ -21,7 +21,7 @@
             android:queryBackground="@null"
             android:queryHint="@string/search_hint_text"
             android:searchIcon="@drawable/icon_search"
-            android:theme="@style/SearchViewStyle"
+            android:theme="@style/search_view_style"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
         
@@ -50,16 +50,36 @@
             android:layout_width="match_parent"
             android:layout_height="44dp"
             android:layout_marginTop="6dp"
+            android:layout_marginStart="16dp"
             app:tabMode="scrollable"
             app:tabGravity="fill"
+            app:tabIndicatorFullWidth="true"
+            app:tabIndicatorHeight="2dp"
+            app:tabIndicator="@null"
+            app:tabIndicatorColor="@color/purple"
+            android:soundEffectsEnabled="false"
 
             app:tabSelectedTextColor="@color/black"
+            app:tabSelectedTextAppearance="@style/tab_selected_text_appearance"
+
             app:tabTextColor="@color/tabs_text_color"
-            app:tabIndicatorColor="@color/purple"
-            app:tabTextAppearance="@style/CustomTabText"
+            app:tabTextAppearance="@style/tab_text_style"
 
             app:layout_constraintTop_toBottomOf="@+id/search_view"
             app:layout_constraintEnd_toEndOf="parent">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Все"
+                />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Designers"
+                />
+
             
         </com.google.android.material.tabs.TabLayout>
 
@@ -85,9 +105,10 @@
             android:id="@+id/workers_rv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="12dp"
             android:paddingHorizontal="16dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tab_layout"
             tools:listitem="@layout/item_worker">

@@ -5,15 +5,21 @@
         <item name="cornerSize">50%</item>
     </style>
     
-    <style name="CustomTabText" parent="Widget.Design.TabLayout">
+    <style name="tab_text_style" parent="Widget.Design.TabLayout">
         <item name="android:textSize">15sp</item>
+        <item name="android:fontFamily">@font/inter_semibold</item>
+    </style>
+
+    <style name="tab_selected_text_appearance" parent="Widget.Design.TabLayout">
+        <item name="android:textSize">15sp</item>
+        <item name="android:fontFamily">@font/inter_semibold</item>
     </style>
     
-    <style name="SearchViewStyle" parent="Widget.AppCompat.SearchView">
+    <style name="search_view_style" parent="Widget.AppCompat.SearchView">
         <item name="android:textCursorDrawable">@drawable/custom_cursor</item>
         <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/search_hint_gray</item>
-        <item name="fontFamily">@font/inter</item>
-        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/inter_semibold</item>
+
     </style>
 </resources>
