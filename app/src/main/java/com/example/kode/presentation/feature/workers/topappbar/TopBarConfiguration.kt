@@ -1,12 +1,15 @@
 package com.example.kode.presentation.feature.workers.topappbar
 
 import android.content.Context
+import android.graphics.Color
 import android.util.TypedValue
 import com.example.kode.R
 import android.view.View
 import android.view.ViewGroup.MarginLayoutParams
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.SearchView
+import androidx.core.content.ContextCompat
 import com.example.kode.presentation.feature.workers.adapter.WorkersAdapter
 import com.example.kode.presentation.feature.workers.viewmodel.WorkersViewModel
 import com.example.kode.databinding.FragmentWorkersBinding
@@ -59,6 +62,9 @@ class TopBarConfiguration(
 
         getSearchIcon(searchView).setImageResource(R.drawable.search_focus_enabled)
 
+        val queryTextId = searchView.context.resources.getIdentifier("android:id/search_src_text",null,null)
+        searchView.findViewById<EditText>(queryTextId).setTextColor(Color.BLACK)
+
         val layoutParams = searchView.layoutParams as MarginLayoutParams
         layoutParams.width = dpToPx(265)
 
@@ -100,17 +106,36 @@ class TopBarConfiguration(
         ).toInt()
     }
 
-    fun configureTab(tab: TabLayout) {
+    fun configureTab(tabLayout: TabLayout) {
 
         for (department in tabFilterMap) {
-            tab.addTab(tab.newTab().setText(department.key))
+            tabLayout.addTab(tabLayout.newTab().setText(department.key))
         }
 
-        tab.addOnTabSelectedListener(object : OnTabSelectedListener {
+        fun i(tab: TabLayout.Tab) {
+            val name = tab.text.toString()
+            if (name == "Все") {
+                tabLayout.setTabTextColors(
+                    ContextCompat.getColor(context,R.color.tabs_text_color),
+                    ContextCompat.getColor(context,R.color.black)
+                )
+            }
+            else {
+                tabLayout.setTabTextColors(
+                    ContextCompat.getColor(context,R.color.tabs_text_color),
+                    ContextCompat.getColor(context,R.color.tabs_text_color)
+                )
+            }
+        }
+
+        tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener {
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
 
+                i(tab!!)
+
                 tab?.let {
+
                     val tabName = it.text.toString()
 
                     if (tabName == "Все") viewModel.transferFullListToCurrency()

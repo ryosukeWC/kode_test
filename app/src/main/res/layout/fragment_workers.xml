@@ -57,17 +57,12 @@
             app:tabIndicatorHeight="2dp"
             app:tabIndicator="@null"
             app:tabIndicatorColor="@color/purple"
-            android:soundEffectsEnabled="false"
-
-            app:tabSelectedTextColor="@color/black"
-            app:tabSelectedTextAppearance="@style/tab_selected_text_appearance"
 
             app:tabTextColor="@color/tabs_text_color"
-            app:tabTextAppearance="@style/tab_text_style"
+            app:tabTextAppearance="@style/tab_text_appearance"
 
             app:layout_constraintTop_toBottomOf="@+id/search_view"
             app:layout_constraintEnd_toEndOf="parent">
-
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -79,7 +74,6 @@
                 android:layout_height="wrap_content"
                 android:text="Designers"
                 />
-
             
         </com.google.android.material.tabs.TabLayout>
 

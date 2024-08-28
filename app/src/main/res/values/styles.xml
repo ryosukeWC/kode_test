@@ -5,21 +5,28 @@
         <item name="cornerSize">50%</item>
     </style>
     
-    <style name="tab_text_style" parent="Widget.Design.TabLayout">
+    <style name="tab_text_appearance" parent="Widget.Design.TabLayout">
         <item name="android:textSize">15sp</item>
-        <item name="android:fontFamily">@font/inter_semibold</item>
+        <item name="android:fontFamily">@font/inter_semibold_600</item>
     </style>
 
     <style name="tab_selected_text_appearance" parent="Widget.Design.TabLayout">
         <item name="android:textSize">15sp</item>
-        <item name="android:fontFamily">@font/inter_semibold</item>
+        <item name="android:fontFamily">@font/inter_semibold_600</item>
     </style>
     
     <style name="search_view_style" parent="Widget.AppCompat.SearchView">
         <item name="android:textCursorDrawable">@drawable/custom_cursor</item>
         <item name="android:textSize">15sp</item>
-        <item name="android:textColor">@color/search_hint_gray</item>
-        <item name="fontFamily">@font/inter_semibold</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="fontFamily">@font/inter_medium_500</item>
+        <item name="android:textColorHint">@color/search_hint_gray</item>
+        <item name="editTextColor">@color/black</item>
 
+    </style>
+
+    <style name="SearchAutoCompleteTextView" parent="Widget.AppCompat.Light.AutoCompleteTextView">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorHint">@color/search_hint_gray</item>
     </style>
 </resources>
