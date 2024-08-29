@@ -112,18 +112,20 @@ class TopBarConfiguration(
             tabLayout.addTab(tabLayout.newTab().setText(department.key))
         }
 
-        fun i(tab: TabLayout.Tab) {
+        fun setTabColor(tab: TabLayout.Tab) {
+
             val name = tab.text.toString()
-            if (name == "Все") {
-                tabLayout.setTabTextColors(
-                    ContextCompat.getColor(context,R.color.tabs_text_color),
-                    ContextCompat.getColor(context,R.color.black)
-                )
-            }
-            else {
+            if (name != "Все") {
                 tabLayout.setTabTextColors(
                     ContextCompat.getColor(context,R.color.tabs_text_color),
                     ContextCompat.getColor(context,R.color.tabs_text_color)
+                )
+            }
+            else
+            {
+                tabLayout.setTabTextColors(
+                    ContextCompat.getColor(context,R.color.tabs_text_color),
+                    ContextCompat.getColor(context,R.color.black)
                 )
             }
         }
@@ -132,7 +134,7 @@ class TopBarConfiguration(
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
 
-                i(tab!!)
+                setTabColor(tab!!)
 
                 tab?.let {
 
