@@ -94,7 +94,7 @@
         android:layout_marginTop="12dp"
         android:fontFamily="@font/inter"
         android:textSize="13sp"
-        android:textColor="@color/gray_55555C"
+        android:textColor="@color/dark_gray_55555C"
         android:textAlignment="center"
         tools:text="Designer"
         app:layout_constraintEnd_toEndOf="parent"

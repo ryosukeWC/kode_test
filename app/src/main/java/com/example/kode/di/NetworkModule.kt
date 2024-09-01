@@ -34,7 +34,7 @@ class NetworkModule {
         return retrofit.create(WorkersApi::class.java)
     }
     companion object {
-        const val BASE_URL = "https://stoplight.io/mocks/kode-api/trainee-test/331141861/"
+        private const val BASE_URL = "https://stoplight.io/mocks/kode-api/trainee-test/331141861/"
     }
 
     @Singleton

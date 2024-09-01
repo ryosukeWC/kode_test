@@ -9,25 +9,61 @@
         android:id="@+id/avatar"
         android:layout_width="72dp"
         android:layout_height="72dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginBottom="6dp"
         android:scaleType="centerCrop"
-        tools:src="@drawable/goose_plug"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-
-        app:shapeAppearanceOverlay="@style/CircularImageView">
+        app:shapeAppearanceOverlay="@style/CircularImageView"
+        tools:src="@drawable/goose_plug">
 
     </com.google.android.material.imageview.ShapeableImageView>
 
-    <LinearLayout
-        android:id="@+id/name_and_tag_container"
+    <View
+        android:id="@+id/text_container"
         android:layout_width="0dp"
-        android:layout_height="26dp"
-        android:orientation="horizontal"
+        android:layout_height="60dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/avatar"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/worker_name"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:textSize="16sp"
+        android:fontFamily="@font/inter_medium_500"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/black"
+        tools:text="Алексей Миногаров"
+        app:layout_constraintStart_toStartOf="@+id/text_container"
+        app:layout_constraintTop_toTopOf="@+id/text_container" />
+
+    <TextView
+        android:id="@+id/worker_tag"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="10dp"
+        android:gravity="bottom"
+        tools:text="mi"
+        android:textSize="14sp"
+        android:textColor="@color/light_gray_97979B"
+        app:layout_constraintStart_toEndOf="@+id/worker_name"
+        app:layout_constraintTop_toTopOf="@+id/text_container" />
+
+    <TextView
+        android:id="@+id/worker_post"
+        android:layout_width="wrap_content"
+        android:layout_height="16dp"
+        android:layout_marginTop="3dp"
+        android:fontFamily="@font/inter_regular_400"
+        android:textColor="@color/dark_gray_55555C"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="@+id/text_container"
+        app:layout_constraintTop_toBottomOf="@id/worker_name"
+        tools:text="Analyst" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
