@@ -12,7 +12,7 @@ fun WorkersListDTO.toWorkerListPOJO() : List<Worker> {
             lastName = workerDTO.lastName ?: "",
             birthday = workerDTO.birthday ?: "",
             phone = workerDTO.phone ?: "",
-            userTag = workerDTO.userTag ?: "",
+            userTag = workerDTO.userTag?.lowercase() ?: "",
             position = workerDTO.position ?: "",
             imageUrl = workerDTO.avatarUrl ?: "",
             department = workerDTO.department ?: ""

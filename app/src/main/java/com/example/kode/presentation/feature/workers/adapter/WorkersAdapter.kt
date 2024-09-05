@@ -7,7 +7,8 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import coil.load
+import coil.imageLoader
+import coil.request.ImageRequest
 import com.example.kode.R
 import com.example.kode.databinding.ItemWorkerBinding
 import com.example.kode.model.Worker
@@ -36,12 +37,27 @@ class WorkersVH(private val binding: ItemWorkerBinding) : ViewHolder(binding.roo
 
     fun bindItem(data: Worker) {
 
+        val imageView = binding.avatar
         val fullName = "${data.firstName} ${data.lastName}"
 
+        val imageLoader = imageView.context.imageLoader
+
+        val request = ImageRequest.Builder(imageView.context)
+            .data(data.imageUrl)
+            .target(
+                onSuccess = { result ->
+                    imageView.setImageDrawable(result)
+                },
+                onError = {
+                    imageView.setImageResource(R.drawable.goose_plug)
+                }
+            )
+            .build()
+
+        imageLoader.enqueue(request)
+
+
         with(binding) {
-//            avatar.loadImageOrDefault(data.imageUrl, context)
-            if (data.imageUrl.isNotEmpty()) avatar.load(data.imageUrl)
-            else avatar.load(R.drawable.goose_plug)
             workerName.text = fullName
             workerPost.text = data.position
             workerTag.text = data.userTag

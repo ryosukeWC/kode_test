@@ -52,12 +52,11 @@
             android:layout_marginTop="6dp"
             android:layout_marginStart="16dp"
             app:tabMode="scrollable"
-            app:tabGravity="fill"
+            app:tabGravity="center"
             app:tabIndicatorFullWidth="true"
             app:tabIndicatorHeight="2dp"
             app:tabIndicator="@null"
             app:tabIndicatorColor="@color/purple"
-
             app:tabSelectedTextColor="@color/black"
             app:tabSelectedTextAppearance="@style/tab_selected_text_appearance"
 
@@ -66,22 +65,9 @@
 
             app:layout_constraintTop_toBottomOf="@+id/search_view"
             app:layout_constraintEnd_toEndOf="parent">
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Все"
-                />
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Designers"
-                />
             
         </com.google.android.material.tabs.TabLayout>
-
-
-
+        
         <TextView
             android:id="@+id/cancel_button"
             android:layout_width="78dp"
@@ -105,7 +91,6 @@
             android:layout_marginTop="12dp"
             android:paddingHorizontal="16dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tab_layout"
             tools:listitem="@layout/item_worker">

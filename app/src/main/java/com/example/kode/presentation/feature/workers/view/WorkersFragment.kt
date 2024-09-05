@@ -2,13 +2,9 @@ package com.example.kode.presentation.feature.workers.view
 
 import LoadingAdapter
 import android.os.Bundle
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewGroup.MarginLayoutParams
-import android.widget.ImageView
-import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -17,13 +13,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kode.R
 import com.example.kode.databinding.FragmentWorkersBinding
 import com.example.kode.domain.util.ResponseResult
-import com.example.kode.presentation.feature.workers.common.tabFilterMap
 import com.example.kode.presentation.feature.workers.adapter.WorkersAdapter
 import com.example.kode.presentation.feature.workers.common.OnRadioButtonClickListener
 import com.example.kode.presentation.feature.workers.topappbar.TopBarConfiguration
 import com.example.kode.presentation.feature.workers.viewmodel.WorkersViewModel
-import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -69,6 +62,8 @@ class WorkersFragment : Fragment(), OnRadioButtonClickListener {
                         is ResponseResult.Loading -> {
                             binding.workersRv.adapter = LoadingAdapter()
                         }
+
+                        else -> {}
                     }
                 }
             }

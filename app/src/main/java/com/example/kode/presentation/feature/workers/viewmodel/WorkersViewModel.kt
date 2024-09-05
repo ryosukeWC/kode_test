@@ -34,8 +34,10 @@ class WorkersViewModel @Inject constructor(private val api: WorkersApi) : ViewMo
             _state.value = ResponseResult.Loading()
             try {
                 val fetchList = api.getWorkers().toWorkerListPOJO()
+//                val fetchList = api.getRandomWorkers().toWorkerListPOJO()
                 _currencyList.value = fetchList
-                _state.value = ResponseResult.Success(fetchList)
+                filterListByAlphaBet()
+                _state.value = ResponseResult.Success(_currencyList.value)
             }
             catch (exception : Exception) {
                 _state.value = ResponseResult.Error(exception.message)
@@ -75,7 +77,4 @@ class WorkersViewModel @Inject constructor(private val api: WorkersApi) : ViewMo
     private fun getReceivedList(): List<Worker> {
         return _state.value.data!!
     }
-
-
-
 }

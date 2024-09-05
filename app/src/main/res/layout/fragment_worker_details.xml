@@ -13,8 +13,7 @@
         android:background="@color/details_gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-    </View>
+        app:layout_constraintTop_toTopOf="parent"></View>
 
     <View
         android:id="@+id/bottom_view"
@@ -63,28 +62,30 @@
         android:layout_width="wrap_content"
         android:layout_height="28dp"
         android:layout_marginTop="24dp"
-        android:textStyle="bold"
-        android:fontFamily="@font/inter"
-        android:textSize="24sp"
-        android:textColor="@color/black"
-        tools:text="Алиса Иванова"
+        android:fontFamily="@font/inter_bold_700"
         android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/worker_avatar" />
+        app:layout_constraintTop_toBottomOf="@+id/worker_avatar"
+        tools:text="Алиса Иванова" />
 
     <TextView
         android:id="@+id/user_tag"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_marginTop="24dp"
+        android:layout_height="22dp"
         android:layout_marginStart="4dp"
-        android:gravity="center_vertical|bottom"
-        android:fontFamily="@font/inter"
+
+        android:fontFamily="@font/inter_regular_400"
+        android:textAlignment="center"
         android:textSize="17sp"
-        tools:text="al"
+        android:textColor="@color/light_gray_97979B"
+
+        app:layout_constraintBottom_toBottomOf="@+id/worker_name"
         app:layout_constraintStart_toEndOf="@+id/worker_name"
-        app:layout_constraintTop_toBottomOf="@+id/worker_avatar" />
+        app:layout_constraintTop_toTopOf="@+id/worker_name"
+        tools:text="al" />
 
 
     <TextView
@@ -92,7 +93,7 @@
         android:layout_width="wrap_content"
         android:layout_height="17dp"
         android:layout_marginTop="12dp"
-        android:fontFamily="@font/inter"
+        android:fontFamily="@font/inter_regular_400"
         android:textSize="13sp"
         android:textColor="@color/dark_gray_55555C"
         android:textAlignment="center"
@@ -124,31 +125,30 @@
     <TextView
         android:id="@+id/date_birthday"
         android:layout_width="200dp"
-        android:layout_height="22dp"
+        android:layout_height="20dp"
         android:layout_marginStart="14dp"
-        android:fontFamily="@font/inter"
+        android:fontFamily="@font/inter_medium_500"
         android:textSize="16sp"
         android:textAlignment="textStart"
         tools:text="5 июня 1996"
         android:textColor="@color/black"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/birthday_view"
         app:layout_constraintStart_toEndOf="@+id/star_image"
         app:layout_constraintTop_toTopOf="@+id/birthday_view" />
 
     <TextView
-        android:id="@+id/age"
+        android:id="@+id/text_view_age"
         android:layout_width="100dp"
         android:layout_height="20dp"
-        tools:text="24 года"
-        android:textAlignment="textEnd"
-        android:textStyle="bold"
-        android:textColor="@color/tabs_text_color"
-        android:textSize="16sp"
         android:layout_marginEnd="4dp"
+        android:fontFamily="@font/inter_medium_500"
+        android:textAlignment="textEnd"
+        android:textColor="@color/light_gray_97979B"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/birthday_view"
         app:layout_constraintEnd_toEndOf="@+id/birthday_view"
-        app:layout_constraintTop_toTopOf="@+id/birthday_view" />
+        app:layout_constraintTop_toTopOf="@+id/birthday_view"
+        tools:text="24 года" />
 
     <View
         android:id="@+id/phone_view"
@@ -173,14 +173,13 @@
     <TextView
         android:id="@+id/phone_number"
         android:layout_width="200dp"
-        android:layout_height="22dp"
+        android:layout_height="20dp"
         android:layout_marginStart="14dp"
-        android:fontFamily="@font/inter"
+        android:fontFamily="@font/inter_medium_500"
         android:textSize="16sp"
         android:textAlignment="textStart"
         tools:text="+7 (999) 900 90 90"
         android:textColor="@color/black"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/phone_view"
         app:layout_constraintStart_toEndOf="@+id/phone_image"
         app:layout_constraintTop_toTopOf="@+id/phone_view" />

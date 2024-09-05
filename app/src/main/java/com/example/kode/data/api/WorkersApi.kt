@@ -8,7 +8,12 @@ interface WorkersApi {
     @Headers("Accept: application/json, application/xml", "Prefer: code=200, example=success")
     @GET("users")
     suspend fun getWorkers() : WorkersListDTO
-//    @Headers("Accept: application/json, application/xml", "Prefer: code=500, example=error-500")
-//    @GET("users")
-//    suspend fun getWorkers() : WorkersListDTO
+
+    @Headers("Accept: application/json, application/xml", "Prefer: code=500, example=error-500")
+    @GET("users")
+    suspend fun getWorkersWithError500() : WorkersListDTO
+
+    @Headers("Accept: application/json, application/xml","Prefer: code=200, dynamic=true")
+    @GET("users")
+    suspend fun getRandomWorkers() : WorkersListDTO
 }
