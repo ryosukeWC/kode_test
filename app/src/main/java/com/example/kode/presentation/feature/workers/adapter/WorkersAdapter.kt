@@ -11,7 +11,7 @@ import coil.imageLoader
 import coil.request.ImageRequest
 import com.example.kode.R
 import com.example.kode.databinding.ItemWorkerBinding
-import com.example.kode.model.Worker
+import com.example.kode.data.model.Worker
 
 class WorkersAdapter() : ListAdapter<Worker, WorkersVH>(WorkersDiffUtil()) {
 

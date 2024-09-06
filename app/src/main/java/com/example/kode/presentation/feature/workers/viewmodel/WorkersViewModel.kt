@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.kode.data.api.WorkersApi
 import com.example.kode.data.api.mappers.toWorkerListPOJO
 import com.example.kode.domain.util.ResponseResult
-import com.example.kode.model.Worker
+import com.example.kode.data.model.Worker
 import com.example.kode.presentation.feature.workers.adapter.WorkersAdapter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -36,8 +36,7 @@ class WorkersViewModel @Inject constructor(private val api: WorkersApi) : ViewMo
                 val fetchList = api.getWorkers().toWorkerListPOJO()
 //                val fetchList = api.getRandomWorkers().toWorkerListPOJO()
                 _currencyList.value = fetchList
-                filterListByAlphaBet()
-                _state.value = ResponseResult.Success(_currencyList.value)
+                _state.value = ResponseResult.Success(filterListByAlphaBet(fetchList)) // сюда передать отфильтрованный список
             }
             catch (exception : Exception) {
                 _state.value = ResponseResult.Error(exception.message)
@@ -64,9 +63,9 @@ class WorkersViewModel @Inject constructor(private val api: WorkersApi) : ViewMo
         adapter.submitList(filteredList)
     }
 
-    fun filterListByAlphaBet() {
-        val filteredList = _currencyList.value.sortedBy { it.firstName }
-        _currencyList.value = filteredList
+    fun filterListByAlphaBet(list : List<Worker>) : List<Worker> {
+        val filteredList = list.sortedBy { it.firstName }
+        return filteredList
     }
 
     fun filterByBirthday() {

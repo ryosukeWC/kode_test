@@ -11,7 +11,7 @@ import coil.load
 import coil.request.ImageRequest
 import com.example.kode.R
 import com.example.kode.databinding.FragmentWorkerDetailsBinding
-import com.example.kode.model.Worker
+import com.example.kode.data.model.Worker
 import com.example.kode.presentation.feature.details.common.CalculateAge
 import com.example.kode.presentation.feature.details.common.FormatDateAndPhone
 import java.time.LocalDate

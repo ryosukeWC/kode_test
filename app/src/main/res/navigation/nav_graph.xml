@@ -19,7 +19,7 @@
             app:destination="@id/workerDetailsFragment" />
         <argument
             android:name="worker"
-            app:argType="com.example.kode.model.Worker" />
+            app:argType="com.example.kode.data.model.Worker" />
 
     </fragment>
     <fragment

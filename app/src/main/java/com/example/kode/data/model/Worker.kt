@@ -1,4 +1,4 @@
-package com.example.kode.model
+package com.example.kode.data.model
 
 import java.io.Serializable
 

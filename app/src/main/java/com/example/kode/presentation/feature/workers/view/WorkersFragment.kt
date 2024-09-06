@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kode.R
@@ -18,6 +20,7 @@ import com.example.kode.presentation.feature.workers.common.OnRadioButtonClickLi
 import com.example.kode.presentation.feature.workers.topappbar.TopBarConfiguration
 import com.example.kode.presentation.feature.workers.viewmodel.WorkersViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -48,30 +51,29 @@ class WorkersFragment : Fragment(), OnRadioButtonClickListener {
         adapter = WorkersAdapter()
         binding.workersRv.adapter = adapter
 
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
 
-            launch {
-                viewModel.state.collect {
-                    when (it) {
-                        is ResponseResult.Success -> {
-                            binding.workersRv.adapter = adapter
-                            adapter.submitList(it.data)
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+
+                launch {
+                    viewModel.state.collect { state ->
+                        when (state) {
+                            is ResponseResult.Success -> {
+                                binding.workersRv.adapter = adapter
+                                adapter.submitList(state.data)
+                            }
+                            is ResponseResult.Error -> navController.navigate(R.id.action_workersFragment_to_errorFragment)
+                            is ResponseResult.Loading -> {
+                                binding.workersRv.adapter = LoadingAdapter()
+                            }
                         }
-
-                        is ResponseResult.Error -> navController.navigate(R.id.action_workersFragment_to_errorFragment)
-                        is ResponseResult.Loading -> {
-                            binding.workersRv.adapter = LoadingAdapter()
-                        }
-
-                        else -> {}
                     }
-                }
-            }
 
-            launch {
-                lifecycleScope.launch {
-                    viewModel.currencyList.collect {
-                        adapter.submitList(it)
+                }
+
+                launch {
+                    viewModel.currencyList.collect { filteredList ->
+                        adapter.submitList(filteredList)
                     }
                 }
             }
@@ -94,7 +96,7 @@ class WorkersFragment : Fragment(), OnRadioButtonClickListener {
     }
 
     override fun onClickAlphabet() {
-        viewModel.filterListByAlphaBet()
+//        viewModel.filterListByAlphaBet()
     }
 
     override fun onClickBirthday() {
