@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/workersFragment"
-        android:name="com.example.kode.presentation.feature.workers.view.WorkersFragment"
+        android:name="com.example.kode.feature.workers.view.WorkersFragment"
         android:label="WorkersFragment" >
         <action
             android:id="@+id/action_workersFragment_to_errorFragment"
@@ -24,7 +24,7 @@
     </fragment>
     <fragment
         android:id="@+id/errorFragment"
-        android:name="com.example.kode.presentation.feature.error.view.ErrorFragment"
+        android:name="com.example.kode.feature.error.view.ErrorFragment"
         android:label="fragment_error"
         tools:layout="@layout/fragment_error" >
         <action
@@ -34,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/workerDetailsFragment"
-        android:name="com.example.kode.presentation.feature.details.view.WorkerDetailsFragment"
+        android:name="com.example.kode.feature.details.view.WorkerDetailsFragment"
         android:label="WorkerDetailsFragment" >
         <action
             android:id="@+id/action_workerDetailsFragment_to_workersFragment"

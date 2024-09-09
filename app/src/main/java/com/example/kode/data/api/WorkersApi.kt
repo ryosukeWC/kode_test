@@ -1,5 +1,6 @@
 package com.example.kode.data.api
 
+import com.example.kode.data.api.dto.WorkerDTO
 import com.example.kode.data.api.dto.WorkersListDTO
 import retrofit2.http.GET
 import retrofit2.http.Headers
