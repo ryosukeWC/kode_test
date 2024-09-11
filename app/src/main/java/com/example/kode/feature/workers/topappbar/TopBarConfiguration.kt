@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.SearchView
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.SavedStateHandle
 import com.example.kode.feature.workers.adapter.WorkersAdapter
 import com.example.kode.feature.workers.viewmodel.WorkersViewModel
 import com.example.kode.databinding.FragmentWorkersBinding
@@ -130,6 +131,19 @@ class TopBarConfiguration(
             tabLayout.addTab(tabLayout.newTab().setText(department.key))
         }
 
+        val savedTab = viewModel.selectedTab
+        val tabToSelect = tabLayout.tabCount
+            .takeIf { it > 0 }
+            ?.let { count ->
+                (0 until count).firstNotNullOfOrNull { index ->
+                    tabLayout.getTabAt(index)?.takeIf { it.text == savedTab }
+                }
+            }
+
+        tabToSelect?.let {
+            tabLayout.selectTab(it)
+        }
+
         tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener {
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
@@ -139,6 +153,7 @@ class TopBarConfiguration(
                 tab?.let {
 
                     val tabName = it.text.toString()
+                    viewModel.selectedTab = tabName
 
                     if (tabName == "Все") {
                         viewModel.setFetchedListToAdapter()

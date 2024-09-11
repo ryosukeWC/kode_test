@@ -1,12 +1,14 @@
 package com.example.kode.feature.workers.viewmodel
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.kode.data.WorkersRepository
+import com.example.kode.data.repository.WorkersRepository
 import com.example.kode.data.model.Worker
 import com.example.kode.feature.workers.UiState
 import com.example.kode.feature.workers.adapter.WorkersAdapter
 import com.example.kode.feature.workers.toUiState
+import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,7 +17,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class WorkersViewModel @Inject constructor(private val repository: WorkersRepository) : ViewModel() {
+class WorkersViewModel @Inject constructor(
+    private val repository: WorkersRepository,
+    private val savedStateHandle: SavedStateHandle) : ViewModel() {
 
     private val _state = MutableStateFlow<UiState>(UiState.Loading)
     val state: StateFlow<UiState> = _state
@@ -72,4 +76,18 @@ class WorkersViewModel @Inject constructor(private val repository: WorkersReposi
 //        _currencyList.value = filteredList
 //    }
 //
+
+    var selectedTab : String?
+        get() = savedStateHandle["SELECTED_TAB_LEY"]
+        set(value) {
+            savedStateHandle["SELECTED_TAB_LEY"] = value
+        }
+
+//    fun setDataToStateHandle(selectedTab : String) {
+//        savedStateHandle[SELECTED_TAB_LEY] = selectedTab
+//    }
+
+    companion object {
+        const val SELECTED_TAB_LEY = "SELECTED_TAB"
+    }
 }

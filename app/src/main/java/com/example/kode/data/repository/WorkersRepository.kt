@@ -1,6 +1,7 @@
-package com.example.kode.data
+package com.example.kode.data.repository
 
 import android.util.Log
+import com.example.kode.data.ResponseResult
 import com.example.kode.data.api.WorkersApi
 import com.example.kode.data.api.mappers.toWorkerListPOJO
 import com.example.kode.data.model.Worker
