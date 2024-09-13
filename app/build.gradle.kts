@@ -59,6 +59,7 @@ dependencies {
     implementation(libs.serialization.converter)
     implementation(libs.okhttp)
     implementation(libs.okhttp.logging)
+    implementation(libs.androidx.swiperefreshlayout)
 
     implementation(libs.hilt)
     ksp(libs.hilt.compiler)

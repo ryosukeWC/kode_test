@@ -7,6 +7,7 @@ import com.example.kode.data.api.mappers.toWorkerListPOJO
 import com.example.kode.data.model.Worker
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
@@ -19,7 +20,8 @@ class WorkersRepository @Inject constructor(private val api: WorkersApi) {
 
         try {
             val apiRequest = api.getWorkers()
-            emit(ResponseResult.Success(apiRequest.toWorkerListPOJO()))
+            emit(ResponseResult.Success(apiRequest.toWorkerListPOJO().sortedBy { worker -> worker.firstName }
+            ))
         }
         catch (exception : Exception) {
             val message = exception.message ?: "Unknown exception"

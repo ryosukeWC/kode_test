@@ -25,7 +25,7 @@
         android:fontFamily="@font/inter_semibold_600"
         android:textSize="20sp"
         android:textColor="@color/black"
-        android:text="Сортировка"
+        android:text="@string/bottom_sort_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/top_line" />
@@ -42,7 +42,7 @@
 
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/radio_button_alphabet"
-            android:layout_width="match_parent"
+            android:layout_width="320dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textSize="16sp"
@@ -50,12 +50,12 @@
             android:fontFamily="@font/inter_medium_500"
             android:textColor="@color/black"
             android:checked="false"
-            android:text="По алфавиту">
+            android:text="@string/bottom_filter_alpabet_text">
         </com.google.android.material.radiobutton.MaterialRadioButton>
 
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/radio_button_birthday"
-            android:layout_width="match_parent"
+            android:layout_width="320dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             app:buttonTint="@color/purple"
@@ -63,7 +63,7 @@
             android:textSize="16sp"
             android:textColor="@color/black"
             android:fontFamily="@font/inter_medium_500"
-            android:text="По дню рождения">
+            android:text="@string/bottom_filter_birthday_text">
         </com.google.android.material.radiobutton.MaterialRadioButton>
 
     </RadioGroup>

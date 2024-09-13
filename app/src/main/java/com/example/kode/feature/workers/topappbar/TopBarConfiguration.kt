@@ -131,29 +131,26 @@ class TopBarConfiguration(
             tabLayout.addTab(tabLayout.newTab().setText(department.key))
         }
 
-        val savedTab = viewModel.selectedTab
-        val tabToSelect = tabLayout.tabCount
-            .takeIf { it > 0 }
-            ?.let { count ->
-                (0 until count).firstNotNullOfOrNull { index ->
-                    tabLayout.getTabAt(index)?.takeIf { it.text == savedTab }
-                }
+        val selectedTabPosition = viewModel.selectedTabPosition
+        if (selectedTabPosition != null) {
+            val selectedTab = tabLayout.getTabAt(selectedTabPosition)
+            selectedTab?.let {
+                setTabColor(tabLayout,it)
             }
-
-        tabToSelect?.let {
-            tabLayout.selectTab(it)
+            selectedTab?.select()
         }
 
         tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener {
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
 
-                setTabColor(tabLayout,tab!!)
-
                 tab?.let {
 
+                    setTabColor(tabLayout,it)
+
+                    viewModel.selectedTabPosition = it.position
+
                     val tabName = it.text.toString()
-                    viewModel.selectedTab = tabName
 
                     if (tabName == "Все") {
                         viewModel.setFetchedListToAdapter()

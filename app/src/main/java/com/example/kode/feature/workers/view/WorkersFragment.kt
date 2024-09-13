@@ -33,6 +33,7 @@ class WorkersFragment : Fragment(), OnRadioButtonClickListener {
     private val viewModel: WorkersViewModel by viewModels()
 
     private lateinit var adapter: WorkersAdapter
+    //private lateinit var topAppBar
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -97,10 +98,10 @@ class WorkersFragment : Fragment(), OnRadioButtonClickListener {
     }
 
     override fun onClickAlphabet() {
-//        viewModel.filterListByAlphaBet()
+        viewModel.filterListByAlphaBet()
     }
 
     override fun onClickBirthday() {
-//        viewModel.filterByBirthday()
+        viewModel.filterByBirthday()
     }
 }

@@ -8,7 +8,6 @@ import com.example.kode.data.model.Worker
 import com.example.kode.feature.workers.UiState
 import com.example.kode.feature.workers.adapter.WorkersAdapter
 import com.example.kode.feature.workers.toUiState
-import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -43,14 +42,14 @@ class WorkersViewModel @Inject constructor(
         viewModelScope.launch {
             if (_state.value is UiState.Success) {
                 _adapterList.value =
-                    (_state.value as UiState.Success).workersList.filter { worker ->
+                    getFetchedList().filter { worker ->
                         worker.department.contains(departmentName, ignoreCase = true)
                     }
             }
         }
     }
 
-    fun getFetchedList(): List<Worker> {
+    private fun getFetchedList(): List<Worker> {
         return (_state.value as UiState.Success).workersList
     }
 
@@ -65,29 +64,35 @@ class WorkersViewModel @Inject constructor(
         }
         adapter.submitList(filteredList)
     }
-//
-//    fun filterListByAlphaBet(currencyList : List<Worker>) : List<Worker> {
-//        val filteredList = currencyList.sortedBy { it.firstName }
-//        return filteredList
-//    }
-//
-//    fun filterByBirthday() {
-//        val filteredList = _currencyList.value.sortedBy { it.birthday }
-//        _currencyList.value = filteredList
-//    }
-//
 
-    var selectedTab : String?
-        get() = savedStateHandle["SELECTED_TAB_LEY"]
+    fun filterListByAlphaBet() {
+        if (_adapterList.value.isEmpty()) {
+            _adapterList.value = getFetchedList().sortedBy { it.firstName }
+        }
+        else {
+            val currencyList = _adapterList.value
+            _adapterList.value = currencyList.sortedBy { it.firstName }
+        }
+    }
+
+    fun filterByBirthday() {
+        if (_adapterList.value.isEmpty()) {
+            _adapterList.value = getFetchedList().sortedBy { it.birthday }
+        }
+        else {
+            val currencyList = _adapterList.value
+            _adapterList.value = currencyList.sortedBy { it.birthday }
+        }
+    }
+
+
+    var selectedTabPosition : Int?
+        get() = savedStateHandle[SELECTED_TAB_POSITION_KEY]
         set(value) {
-            savedStateHandle["SELECTED_TAB_LEY"] = value
+            savedStateHandle[SELECTED_TAB_POSITION_KEY] = value
         }
 
-//    fun setDataToStateHandle(selectedTab : String) {
-//        savedStateHandle[SELECTED_TAB_LEY] = selectedTab
-//    }
-
     companion object {
-        const val SELECTED_TAB_LEY = "SELECTED_TAB"
+        const val SELECTED_TAB_POSITION_KEY = "SELECTED_TAB_POSITION"
     }
 }
