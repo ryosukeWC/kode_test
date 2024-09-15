@@ -34,6 +34,9 @@ class WorkersViewModel @Inject constructor(
         viewModelScope.launch {
             repository.getWorkersFromServer().map { it.toUiState() }.collect { state ->
                 _state.value = state
+//                if (_state.value is UiState.Success) {
+//                    _adapterList.value = (_state.value as UiState.Success).workersList
+//                }
             }
         }
     }

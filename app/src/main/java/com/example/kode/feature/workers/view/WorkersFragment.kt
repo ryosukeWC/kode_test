@@ -8,14 +8,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.SavedStateViewModelFactory
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kode.R
 import com.example.kode.databinding.FragmentWorkersBinding
-import com.example.kode.data.ResponseResult
 import com.example.kode.feature.workers.UiState
 import com.example.kode.feature.workers.adapter.WorkersAdapter
 import com.example.kode.feature.workers.common.OnRadioButtonClickListener
@@ -33,13 +31,12 @@ class WorkersFragment : Fragment(), OnRadioButtonClickListener {
     private val viewModel: WorkersViewModel by viewModels()
 
     private lateinit var adapter: WorkersAdapter
-    //private lateinit var topAppBar
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         _binding = FragmentWorkersBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -47,11 +44,14 @@ class WorkersFragment : Fragment(), OnRadioButtonClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val navController = binding.root.findNavController()
+        val navController = view.findNavController()
 
-        binding.workersRv.layoutManager = LinearLayoutManager(requireContext())
+        val recyclerView = binding.workersRv
+
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
         adapter = WorkersAdapter()
-        binding.workersRv.adapter = adapter
+        recyclerView.adapter = adapter
+        recyclerView.setHasFixedSize(true)
 
         viewLifecycleOwner.lifecycleScope.launch {
 
@@ -89,6 +89,16 @@ class WorkersFragment : Fragment(), OnRadioButtonClickListener {
             val modalBottomSheet = BottomFragment()
             modalBottomSheet.setListener(this)
             modalBottomSheet.show(childFragmentManager, BottomFragment.TAG)
+        }
+
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            // определить имя таба и загрузить только нужный
+//            viewModel.selectedTabPosition?.let {
+//                val selectedTab = binding.tabLayout.getTabAt(it)
+//                viewModel.loadWorkers()
+//                viewModel.filterTheListByDepartment(selectedTab?.text.toString())
+//            }
+            binding.swipeRefreshLayout.isRefreshing = false
         }
     }
 
