@@ -6,6 +6,7 @@ import android.util.TypedValue
 import com.example.kode.R
 import android.view.View
 import android.view.ViewGroup.MarginLayoutParams
+import android.view.ViewGroup.VISIBLE
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.SearchView
@@ -34,7 +35,17 @@ class TopBarConfiguration(
 
             override fun onQueryTextChange(query: String?): Boolean {
                 query?.let {
-                    viewModel.searchFilterByName(query,adapter)
+                    val filteredList = viewModel.searchFilterByName(query,adapter)
+
+                    if (filteredList.isEmpty()) {
+                        binding.errorSearch.visibility = View.VISIBLE
+                        binding.workersRv.visibility = View.GONE
+                    }
+                    else {
+                        binding.errorSearch.visibility = View.GONE
+                        binding.workersRv.visibility = View.VISIBLE
+                        adapter.submitList(filteredList)
+                    }
                 }
                 return true
             }

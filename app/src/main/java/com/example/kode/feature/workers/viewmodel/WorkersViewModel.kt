@@ -33,22 +33,42 @@ class WorkersViewModel @Inject constructor(
     fun loadWorkers() {
         viewModelScope.launch {
             repository.getWorkersFromServer().map { it.toUiState() }.collect { state ->
-                _state.value = state
-//                if (_state.value is UiState.Success) {
-//                    _adapterList.value = (_state.value as UiState.Success).workersList
-//                }
+
+                when (state) {
+                    is UiState.Success -> {
+                        _state.value = state
+                        _adapterList.value = state.workersList
+                    }
+                    else -> _state.value = state
+                }
+            }
+        }
+    }
+
+    fun refreshWorkers(departmentName: String) {
+        viewModelScope.launch {
+
+            repository.getWorkersFromServer().map { it.toUiState() }.collect { state ->
+
+                when (state) {
+                    is UiState.Success -> {
+                        _state.value = state
+                        if (departmentName == "Все") {
+                            _adapterList.value = state.workersList
+                        }
+                        else {
+                            filterTheListByDepartment(departmentName)
+                        }
+                    }
+                    else -> _state.value = state
+                }
             }
         }
     }
 
     fun filterTheListByDepartment(departmentName: String) {
-        viewModelScope.launch {
-            if (_state.value is UiState.Success) {
-                _adapterList.value =
-                    getFetchedList().filter { worker ->
-                        worker.department.contains(departmentName, ignoreCase = true)
-                    }
-            }
+        _adapterList.value = getFetchedList().filter { worker ->
+            worker.department.contains(departmentName, ignoreCase = true)
         }
     }
 
@@ -60,12 +80,12 @@ class WorkersViewModel @Inject constructor(
         _adapterList.value = (_state.value as UiState.Success).workersList
     }
 
-    fun searchFilterByName(name : String, adapter: WorkersAdapter) {
+    fun searchFilterByName(name : String, adapter: WorkersAdapter) : List<Worker> {
         val filteredList = _adapterList.value.filter { worker ->
             val fullName = "${worker.firstName} ${worker.lastName}"
             fullName.contains(name, ignoreCase = true)
         }
-        adapter.submitList(filteredList)
+        return filteredList
     }
 
     fun filterListByAlphaBet() {

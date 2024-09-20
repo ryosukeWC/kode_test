@@ -62,9 +62,12 @@ class WorkersFragment : Fragment(), OnRadioButtonClickListener {
                         when (state) {
                             is UiState.Success -> {
                                 binding.workersRv.adapter = adapter
-                                adapter.submitList(state.workersList)
+                                binding.swipeRefreshLayout.isRefreshing = false
                             }
-                            is UiState.Error -> navController.navigate(R.id.action_workersFragment_to_errorFragment)
+                            is UiState.Error -> {
+                                navController.navigate(R.id.action_workersFragment_to_errorFragment)
+                                binding.swipeRefreshLayout.isRefreshing = false
+                            }
                             is UiState.Loading -> {
                                 binding.workersRv.adapter = LoadingAdapter()
                             }
@@ -92,13 +95,8 @@ class WorkersFragment : Fragment(), OnRadioButtonClickListener {
         }
 
         binding.swipeRefreshLayout.setOnRefreshListener {
-            // определить имя таба и загрузить только нужный
-//            viewModel.selectedTabPosition?.let {
-//                val selectedTab = binding.tabLayout.getTabAt(it)
-//                viewModel.loadWorkers()
-//                viewModel.filterTheListByDepartment(selectedTab?.text.toString())
-//            }
-            binding.swipeRefreshLayout.isRefreshing = false
+            val selectedTab = binding.tabLayout.getTabAt(binding.tabLayout.selectedTabPosition)
+            viewModel.refreshWorkers(selectedTab?.text.toString())
         }
     }
 

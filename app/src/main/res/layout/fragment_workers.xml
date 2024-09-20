@@ -63,8 +63,9 @@
         android:id="@+id/cancel_button"
         android:layout_width="78dp"
         android:layout_height="40dp"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="12dp"
         android:text="@string/cancel_button_text"
+        android:fontFamily="@font/inter_semibold_600"
         android:textColor="@color/purple"
         android:textSize="14sp"
         android:layout_marginEnd="16dp"
@@ -73,6 +74,28 @@
         app:layout_constraintTop_toTopOf="parent"
         android:gravity="center_horizontal|center_vertical"
         android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/error_search"
+        android:layout_width="match_parent"
+        android:layout_height="188dp"
+        app:layout_constraintTop_toBottomOf="@id/tab_layout"
+        android:layout_marginTop="80dp"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/error_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Мы не кого не нашли"
+            android:textAlignment="center"
+            >
+        </TextView>
+
+
+    </LinearLayout>
+
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_layout"
@@ -89,7 +112,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingHorizontal="16dp"
-            tools:listitem="@layout/item_worker" />
+            tools:listitem="@layout/item_worker"
+            android:visibility="visible"/>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
