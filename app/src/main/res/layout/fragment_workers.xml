@@ -78,22 +78,43 @@
     <LinearLayout
         android:id="@+id/error_search"
         android:layout_width="match_parent"
-        android:layout_height="188dp"
+        android:layout_height="120dp"
         app:layout_constraintTop_toBottomOf="@id/tab_layout"
         android:layout_marginTop="80dp"
         android:orientation="vertical"
         android:visibility="gone">
 
+        <ImageView
+            android:id="@+id/search_error_image"
+            android:layout_width="57dp"
+            android:layout_height="56dp"
+            android:layout_gravity="center"
+            android:src="@drawable/search_error_image">
+        </ImageView>
+
         <TextView
-            android:id="@+id/error_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Мы не кого не нашли"
+            android:id="@+id/search_error_title"
+            android:layout_width="match_parent"
+            android:layout_height="22dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/search_error_title_text"
+            android:textSize="17sp"
+            android:textColor="@color/black"
             android:textAlignment="center"
-            >
-        </TextView>
+            android:fontFamily="@font/inter_semibold_600"
+            />
 
-
+        <TextView
+            android:id="@+id/search_error_hint_text"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginTop="12dp"
+            android:textSize="16sp"
+            android:textColor="@color/light_gray_97979B"
+            android:textAlignment="center"
+            android:text="@string/search_error_hint"
+            android:fontFamily="@font/inter_regular_400"
+            />
     </LinearLayout>
 
 
