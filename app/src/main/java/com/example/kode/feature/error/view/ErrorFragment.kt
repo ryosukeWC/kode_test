@@ -10,7 +10,9 @@ import androidx.navigation.findNavController
 import com.example.kode.R
 import com.example.kode.databinding.FragmentErrorBinding
 import com.example.kode.feature.workers.viewmodel.WorkersViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ErrorFragment : Fragment() {
 
     private var _binding: FragmentErrorBinding? = null

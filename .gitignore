@@ -1,17 +1,56 @@
-.gradle
-*.iml
-.gradlegit
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-.DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
+# Crash log files
+hs_err_pid*
+
+# Java class files
+*.class
+
+.kotlin
+# Ignore Gradle files
+.gradle/
+build/
+
+# generated files
+bin/
+gen/
+
+#  configuration
+.iws
+.ipr
+.iml
+# local configuration files
 local.properties
-/.gradle
+
+# built generated package files
+*.apk
+*.ap_
+# Android Studio / IntelliJ IDEA
+*.iws
+.idea/libraries
+.idea/tasks.xml
+.idea/vcs.xml
+.idea/workspace.xml
+/out/
+
+# OS temporary files
+.DS_Store
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# For eclipse Eclipse
+proguard/
+
+# Android Patch ###
+gen-external-apk
+libs
+
+# Packaging files
+*.jar
+*.war
+*.ear
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm

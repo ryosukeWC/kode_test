@@ -1,5 +1,4 @@
 package com.example.kode.data.model
-
 import java.io.Serializable
 
 data class Worker (

@@ -6,12 +6,9 @@ import android.util.TypedValue
 import com.example.kode.R
 import android.view.View
 import android.view.ViewGroup.MarginLayoutParams
-import android.view.ViewGroup.VISIBLE
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.SearchView
-import androidx.core.content.ContextCompat
-import androidx.lifecycle.SavedStateHandle
 import com.example.kode.feature.workers.adapter.WorkersAdapter
 import com.example.kode.feature.workers.viewmodel.WorkersViewModel
 import com.example.kode.databinding.FragmentWorkersBinding
@@ -29,13 +26,14 @@ class TopBarConfiguration(
     fun configureSearch(searchView: SearchView) {
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return true
             }
 
             override fun onQueryTextChange(query: String?): Boolean {
                 query?.let {
-                    val filteredList = viewModel.searchFilterByName(query,adapter)
+                    val filteredList = viewModel.searchFilterByName(query)
 
                     if (filteredList.isEmpty()) {
                         binding.errorSearch.visibility = View.VISIBLE
@@ -60,25 +58,31 @@ class TopBarConfiguration(
         }
 
         binding.cancelButton.setOnClickListener {
-            binding.searchView.setQuery("", true)
+            binding.searchView.setQuery("", false)
             binding.searchView.clearFocus()
         }
     }
 
+    private val searchIconId by lazy {
+        context.resources.getIdentifier("android:id/search_mag_icon", null, null)
+    }
+
+    private val queryTextId by lazy {
+        context.resources.getIdentifier("android:id/search_src_text",null,null)
+    }
+
     private fun getSearchIcon(searchView: SearchView) : ImageView {
-        val searchIconId = searchView.context.resources.getIdentifier("android:id/search_mag_icon", null, null);
         return searchView.findViewById(searchIconId)
     }
 
     private fun turnOnFocus(searchView: SearchView) {
 
         getSearchIcon(searchView).setImageResource(R.drawable.search_focus_enabled)
-
-        val queryTextId = searchView.context.resources.getIdentifier("android:id/search_src_text",null,null)
         searchView.findViewById<EditText>(queryTextId).setTextColor(Color.BLACK)
 
         val layoutParams = searchView.layoutParams as MarginLayoutParams
-        layoutParams.width = dpToPx(265)
+
+        layoutParams.width = dpToPx(0)
 
         layoutParams.marginStart = dpToPx(16)
         layoutParams.marginEnd = dpToPx(0)
@@ -118,24 +122,6 @@ class TopBarConfiguration(
         ).toInt()
     }
 
-    private fun setTabColor(tabLayout: TabLayout,tab: TabLayout.Tab) {
-
-        val name = tab.text.toString()
-        if (name != "Все") {
-            tabLayout.setTabTextColors(
-                ContextCompat.getColor(context,R.color.tabs_text_color),
-                ContextCompat.getColor(context,R.color.tabs_text_color)
-            )
-        }
-        else
-        {
-            tabLayout.setTabTextColors(
-                ContextCompat.getColor(context,R.color.tabs_text_color),
-                ContextCompat.getColor(context,R.color.black)
-            )
-        }
-    }
-
     fun configureTab(tabLayout: TabLayout) {
 
         for (department in tabFilterMap) {
@@ -145,9 +131,6 @@ class TopBarConfiguration(
         val selectedTabPosition = viewModel.selectedTabPosition
         if (selectedTabPosition != null) {
             val selectedTab = tabLayout.getTabAt(selectedTabPosition)
-            selectedTab?.let {
-                setTabColor(tabLayout,it)
-            }
             selectedTab?.select()
         }
 
@@ -157,13 +140,11 @@ class TopBarConfiguration(
 
                 tab?.let {
 
-                    setTabColor(tabLayout,it)
-
                     viewModel.selectedTabPosition = it.position
 
                     val tabName = it.text.toString()
 
-                    if (tabName == "Все") {
+                    if (tabName == ALL_TAB) {
                         viewModel.setFetchedListToAdapter()
                     }
                     else {
@@ -183,5 +164,9 @@ class TopBarConfiguration(
             }
 
         })
+    }
+
+    companion object {
+        const val ALL_TAB = "Все"
     }
 }

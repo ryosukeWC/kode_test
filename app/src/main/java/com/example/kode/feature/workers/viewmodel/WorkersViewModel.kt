@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.kode.data.repository.WorkersRepository
 import com.example.kode.data.model.Worker
 import com.example.kode.feature.workers.UiState
-import com.example.kode.feature.workers.adapter.WorkersAdapter
 import com.example.kode.feature.workers.toUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -53,7 +52,7 @@ class WorkersViewModel @Inject constructor(
                 when (state) {
                     is UiState.Success -> {
                         _state.value = state
-                        if (departmentName == "Все") {
+                        if (departmentName == ALL_TAB) {
                             _adapterList.value = state.workersList
                         }
                         else {
@@ -80,7 +79,7 @@ class WorkersViewModel @Inject constructor(
         _adapterList.value = (_state.value as UiState.Success).workersList
     }
 
-    fun searchFilterByName(name : String, adapter: WorkersAdapter) : List<Worker> {
+    fun searchFilterByName(name : String) : List<Worker> {
         val filteredList = _adapterList.value.filter { worker ->
             val fullName = "${worker.firstName} ${worker.lastName}"
             fullName.contains(name, ignoreCase = true)
@@ -88,24 +87,14 @@ class WorkersViewModel @Inject constructor(
         return filteredList
     }
 
-    fun filterListByAlphaBet() {
-        if (_adapterList.value.isEmpty()) {
-            _adapterList.value = getFetchedList().sortedBy { it.firstName }
-        }
-        else {
-            val currencyList = _adapterList.value
-            _adapterList.value = currencyList.sortedBy { it.firstName }
-        }
+    fun filterByAlphabet() {
+        val currencyList = _adapterList.value
+        _adapterList.value = currencyList.sortedBy { "${it.firstName} ${it.lastName}" }
     }
 
     fun filterByBirthday() {
-        if (_adapterList.value.isEmpty()) {
-            _adapterList.value = getFetchedList().sortedBy { it.birthday }
-        }
-        else {
-            val currencyList = _adapterList.value
-            _adapterList.value = currencyList.sortedBy { it.birthday }
-        }
+        val currencyList = _adapterList.value
+        _adapterList.value = currencyList.sortedBy { it.birthday }
     }
 
 
@@ -117,5 +106,6 @@ class WorkersViewModel @Inject constructor(
 
     companion object {
         const val SELECTED_TAB_POSITION_KEY = "SELECTED_TAB_POSITION"
+        const val ALL_TAB = "Все"
     }
 }

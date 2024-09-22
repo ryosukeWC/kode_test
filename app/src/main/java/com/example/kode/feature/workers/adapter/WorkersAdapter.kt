@@ -7,13 +7,12 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import coil.imageLoader
-import coil.request.ImageRequest
+import coil.load
 import com.example.kode.R
 import com.example.kode.databinding.ItemWorkerBinding
 import com.example.kode.data.model.Worker
 
-class WorkersAdapter() : ListAdapter<Worker, WorkersVH>(WorkersDiffUtil()) {
+class WorkersAdapter : ListAdapter<Worker, WorkersVH>(WorkersDiffUtil()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WorkersVH {
         val binding = ItemWorkerBinding.inflate(LayoutInflater.from(parent.context),parent,false)
@@ -40,22 +39,9 @@ class WorkersVH(private val binding: ItemWorkerBinding) : ViewHolder(binding.roo
         val imageView = binding.avatar
         val fullName = "${data.firstName} ${data.lastName}"
 
-        val imageLoader = imageView.context.imageLoader
-
-        val request = ImageRequest.Builder(imageView.context)
-            .data(data.imageUrl)
-            .target(
-                onSuccess = { result ->
-                    imageView.setImageDrawable(result)
-                },
-                onError = {
-                    imageView.setImageResource(R.drawable.goose_plug)
-                }
-            )
-            .build()
-
-        imageLoader.enqueue(request)
-
+        imageView.load(data.imageUrl) {
+            error(R.drawable.goose_plug)
+        }
 
         with(binding) {
             workerName.text = fullName

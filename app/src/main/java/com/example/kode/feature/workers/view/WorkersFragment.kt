@@ -106,7 +106,7 @@ class WorkersFragment : Fragment(), OnRadioButtonClickListener {
     }
 
     override fun onClickAlphabet() {
-        viewModel.filterListByAlphaBet()
+        viewModel.filterByAlphabet()
     }
 
     override fun onClickBirthday() {
