@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.kode.R
 import com.example.kode.databinding.FragmentBottomBinding
 import com.example.kode.feature.workers.common.OnRadioButtonClickListener
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -27,8 +26,6 @@ class BottomFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.radioButtonAlphabet.isChecked = true
-
         binding.radioButtonAlphabet.setOnCheckedChangeListener { _, _ ->
             listener?.onClickAlphabet()
             dismiss()
@@ -46,5 +43,6 @@ class BottomFragment : BottomSheetDialogFragment() {
 
     companion object {
         const val TAG = "ModalBottomSheet"
+        const val RADIO_BUTTON_TAG = "RadioButtonIsChecked"
     }
 }

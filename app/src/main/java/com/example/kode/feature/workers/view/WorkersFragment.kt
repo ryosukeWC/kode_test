@@ -10,8 +10,10 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.kode.R
 import com.example.kode.databinding.FragmentWorkersBinding
 import com.example.kode.feature.workers.UiState
@@ -31,6 +33,8 @@ class WorkersFragment : Fragment(), OnRadioButtonClickListener {
     private val viewModel: WorkersViewModel by viewModels()
 
     private lateinit var adapter: WorkersAdapter
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,9 +48,9 @@ class WorkersFragment : Fragment(), OnRadioButtonClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val navController = view.findNavController()
+        navController = view.findNavController()
 
-        val recyclerView = binding.workersRv
+        recyclerView = binding.workersRv
 
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         adapter = WorkersAdapter()
@@ -106,10 +110,14 @@ class WorkersFragment : Fragment(), OnRadioButtonClickListener {
     }
 
     override fun onClickAlphabet() {
-        viewModel.filterByAlphabet()
+        adapter.submitList(viewModel.filterByAlphabet()) {
+            recyclerView.scrollToPosition(0)
+        }
     }
 
     override fun onClickBirthday() {
-        viewModel.filterByBirthday()
+        adapter.submitList(viewModel.filterByBirthday()) {
+            recyclerView.scrollToPosition(0)
+        }
     }
 }

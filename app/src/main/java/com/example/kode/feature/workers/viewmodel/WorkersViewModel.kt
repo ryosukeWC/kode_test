@@ -8,6 +8,7 @@ import com.example.kode.data.model.Worker
 import com.example.kode.feature.workers.UiState
 import com.example.kode.feature.workers.toUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
@@ -87,14 +88,15 @@ class WorkersViewModel @Inject constructor(
         return filteredList
     }
 
-    fun filterByAlphabet() {
+    fun filterByAlphabet() : List<Worker> {
         val currencyList = _adapterList.value
-        _adapterList.value = currencyList.sortedBy { "${it.firstName} ${it.lastName}" }
+        return currencyList.sortedBy { "${it.firstName} ${it.lastName}" }
     }
 
-    fun filterByBirthday() {
+    fun filterByBirthday() : List<Worker> {
+
         val currencyList = _adapterList.value
-        _adapterList.value = currencyList.sortedBy { it.birthday }
+        return currencyList.sortedBy { it.birthday }
     }
 
 
