@@ -1,9 +1,10 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    kotlin("plugin.serialization") version "2.0.0"
-    id("com.google.devtools.ksp")
-    id("com.google.dagger.hilt.android")
+    // kotlin("plugin.serialization") version "2.0.0"
+    alias(libs.plugins.jetbrains.kotlin.serialization)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -60,6 +61,8 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.okhttp.logging)
     implementation(libs.androidx.swiperefreshlayout)
+
+    implementation(libs.facebook.shimmer)
 
     implementation(libs.hilt)
     ksp(libs.hilt.compiler)

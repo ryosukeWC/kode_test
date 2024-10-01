@@ -1,4 +1,4 @@
-package com.example.kode.feature.workers.adapter
+package com.example.kode.presentation.workers.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

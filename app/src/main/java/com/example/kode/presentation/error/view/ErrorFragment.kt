@@ -1,4 +1,4 @@
-package com.example.kode.feature.error.view
+package com.example.kode.presentation.error.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.example.kode.R
 import com.example.kode.databinding.FragmentErrorBinding
-import com.example.kode.feature.workers.viewmodel.WorkersViewModel
+import com.example.kode.presentation.workers.viewmodel.WorkersViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

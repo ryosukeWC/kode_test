@@ -1,4 +1,4 @@
-package com.example.kode.feature.workers.topappbar
+package com.example.kode.presentation.workers.topappbar
 
 import android.content.Context
 import android.graphics.Color
@@ -9,10 +9,10 @@ import android.view.ViewGroup.MarginLayoutParams
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.SearchView
-import com.example.kode.feature.workers.adapter.WorkersAdapter
-import com.example.kode.feature.workers.viewmodel.WorkersViewModel
+import com.example.kode.presentation.workers.adapter.WorkersAdapter
+import com.example.kode.presentation.workers.viewmodel.WorkersViewModel
 import com.example.kode.databinding.FragmentWorkersBinding
-import com.example.kode.feature.workers.common.tabFilterMap
+import com.example.kode.presentation.workers.common.tabFilterMap
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 

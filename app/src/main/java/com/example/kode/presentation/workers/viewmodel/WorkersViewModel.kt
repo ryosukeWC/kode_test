@@ -1,14 +1,13 @@
-package com.example.kode.feature.workers.viewmodel
+package com.example.kode.presentation.workers.viewmodel
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.kode.data.repository.WorkersRepository
 import com.example.kode.data.model.Worker
-import com.example.kode.feature.workers.UiState
-import com.example.kode.feature.workers.toUiState
+import com.example.kode.presentation.workers.UiState
+import com.example.kode.presentation.workers.toUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map

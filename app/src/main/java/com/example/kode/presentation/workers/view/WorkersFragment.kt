@@ -1,4 +1,4 @@
-package com.example.kode.feature.workers.view
+package com.example.kode.presentation.workers.view
 
 import LoadingAdapter
 import android.os.Bundle
@@ -16,11 +16,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kode.R
 import com.example.kode.databinding.FragmentWorkersBinding
-import com.example.kode.feature.workers.UiState
-import com.example.kode.feature.workers.adapter.WorkersAdapter
-import com.example.kode.feature.workers.common.OnRadioButtonClickListener
-import com.example.kode.feature.workers.topappbar.TopBarConfiguration
-import com.example.kode.feature.workers.viewmodel.WorkersViewModel
+import com.example.kode.presentation.workers.UiState
+import com.example.kode.presentation.workers.adapter.WorkersAdapter
+import com.example.kode.presentation.workers.common.OnRadioButtonClickListener
+import com.example.kode.presentation.workers.topappbar.TopBarConfiguration
+import com.example.kode.presentation.workers.viewmodel.WorkersViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

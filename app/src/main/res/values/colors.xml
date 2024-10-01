@@ -4,9 +4,7 @@
     <color name="search_background">#F7F7F8</color>
     <color name="black">#050510</color>
     <color name="purple">#6534FF</color>
-    <color name="tabs_text_color">#97979B</color>
     <color name="screen_background">#FFFFFF</color>
-    <color name="text_gray">#97979B</color>
     <color name="search_hint_gray">#C3C3C6</color>
     <color name="details_gray">#F7F7F8</color>
     <color name="dark_gray_55555C">#55555C</color>

@@ -1,4 +1,4 @@
-package com.example.kode.feature.main
+package com.example.kode.presentation.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

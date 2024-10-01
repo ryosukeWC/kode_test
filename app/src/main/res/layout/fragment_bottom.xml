@@ -50,7 +50,7 @@
             android:fontFamily="@font/inter_medium_500"
             android:textColor="@color/black"
             android:checked="false"
-            android:text="@string/bottom_filter_alpabet_text">
+            android:text="@string/bottom_filter_alphabet_text">
         </com.google.android.material.radiobutton.MaterialRadioButton>
 
         <com.google.android.material.radiobutton.MaterialRadioButton

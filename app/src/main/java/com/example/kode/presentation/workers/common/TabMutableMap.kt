@@ -1,4 +1,4 @@
-package com.example.kode.feature.workers.common
+package com.example.kode.presentation.workers.common
 
 internal val tabFilterMap: MutableMap<String, String> get() = mutableMapOf(
     "Все"         to "all",

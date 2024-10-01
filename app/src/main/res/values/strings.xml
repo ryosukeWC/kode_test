@@ -6,7 +6,7 @@
     <string name="fix_message">Постараемся быстро починить</string>
     <string name="text_retry_button">Попробовать снова</string>
     <string name="bottom_sort_text">Сортировка</string>
-    <string name="bottom_filter_alpabet_text">По алфавиту</string>
+    <string name="bottom_filter_alphabet_text">По алфавиту</string>
     <string name="bottom_filter_birthday_text">По дню рождения</string>
     <string name="search_error_hint">Попробуй скорректировать запрос</string>
     <string name="search_error_title_text">Мы никого не нашли</string>

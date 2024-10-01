@@ -1,4 +1,4 @@
-package com.example.kode.feature.details.common
+package com.example.kode.presentation.details.common
 
 import java.time.LocalDate
 import java.time.Period

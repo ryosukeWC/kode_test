@@ -17,7 +17,7 @@
         android:queryBackground="@null"
         android:queryHint="@string/search_hint_text"
         android:searchIcon="@drawable/icon_search"
-        android:theme="@style/search_view_style"
+        android:theme="@style/SearchViewStyle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -53,9 +53,9 @@
         app:tabIndicator="@null"
         app:tabIndicatorColor="@color/purple"
         app:tabSelectedTextColor="@color/black"
-        app:tabSelectedTextAppearance="@style/tab_selected_text_appearance"
-        app:tabTextColor="@color/tabs_text_color"
-        app:tabTextAppearance="@style/tab_text_appearance"
+        app:tabSelectedTextAppearance="@style/TabSelectedTextAppearance"
+        app:tabTextColor="@color/light_gray_97979B"
+        app:tabTextAppearance="@style/TabLayoutTextAppearance"
         app:layout_constraintTop_toBottomOf="@+id/search_view"
         app:layout_constraintEnd_toEndOf="parent" />
 

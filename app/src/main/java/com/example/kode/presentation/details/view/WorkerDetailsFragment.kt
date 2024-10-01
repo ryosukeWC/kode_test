@@ -1,4 +1,4 @@
-package com.example.kode.feature.details.view
+package com.example.kode.presentation.details.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,8 +10,8 @@ import coil.load
 import com.example.kode.R
 import com.example.kode.databinding.FragmentWorkerDetailsBinding
 import com.example.kode.data.model.Worker
-import com.example.kode.feature.details.common.CalculateAge
-import com.example.kode.feature.details.common.FormatDateAndPhone
+import com.example.kode.presentation.details.common.CalculateAge
+import com.example.kode.presentation.details.common.FormatDateAndPhone
 import java.time.LocalDate
 
 class WorkerDetailsFragment : Fragment() {

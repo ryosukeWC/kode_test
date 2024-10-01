@@ -1,4 +1,4 @@
-package com.example.kode.feature.workers
+package com.example.kode.presentation.workers
 
 import com.example.kode.data.ResponseResult
 import com.example.kode.data.model.Worker
