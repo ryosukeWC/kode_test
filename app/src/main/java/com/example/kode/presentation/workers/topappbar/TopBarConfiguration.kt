@@ -9,9 +9,11 @@ import android.view.ViewGroup.MarginLayoutParams
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.SearchView
+import androidx.recyclerview.widget.RecyclerView
 import com.example.kode.presentation.workers.adapter.WorkersAdapter
 import com.example.kode.presentation.workers.viewmodel.WorkersViewModel
 import com.example.kode.databinding.FragmentWorkersBinding
+import com.example.kode.presentation.workers.UiState
 import com.example.kode.presentation.workers.common.tabFilterMap
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
@@ -20,7 +22,8 @@ class TopBarConfiguration(
     private val viewModel: WorkersViewModel,
     private val adapter: WorkersAdapter,
     private val binding : FragmentWorkersBinding,
-    private val context: Context
+    private val context: Context,
+    private val recyclerView: RecyclerView
 ) {
 
     fun configureSearch(searchView: SearchView) {
@@ -145,7 +148,8 @@ class TopBarConfiguration(
                     val tabName = it.text.toString()
 
                     if (tabName == ALL_TAB) {
-                        viewModel.setFetchedListToAdapter()
+                        viewModel.getListWithLoading(viewModel.getListFromSuccessState())
+                        adapter.submitList((viewModel.state.value as UiState.Success).workersList)
                     }
                     else {
                         val departmentName = tabFilterMap[tabName]

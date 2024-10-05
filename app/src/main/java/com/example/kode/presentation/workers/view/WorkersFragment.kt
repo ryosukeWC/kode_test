@@ -22,6 +22,7 @@ import com.example.kode.presentation.workers.common.OnRadioButtonClickListener
 import com.example.kode.presentation.workers.topappbar.TopBarConfiguration
 import com.example.kode.presentation.workers.viewmodel.WorkersViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -88,7 +89,7 @@ class WorkersFragment : Fragment(), OnRadioButtonClickListener {
             }
         }
 
-        val topAppBar = TopBarConfiguration(viewModel,adapter,binding,requireContext())
+        val topAppBar = TopBarConfiguration(viewModel,adapter,binding,requireContext(),recyclerView)
         topAppBar.configureSearch(binding.searchView)
         topAppBar.configureTab(binding.tabLayout)
 
@@ -110,8 +111,11 @@ class WorkersFragment : Fragment(), OnRadioButtonClickListener {
     }
 
     override fun onClickAlphabet() {
-        adapter.submitList(viewModel.filterByAlphabet()) {
-            recyclerView.scrollToPosition(0)
+
+        lifecycleScope.launch(Dispatchers.Main) {
+            adapter.submitList(viewModel.returnFilteredListByAlphabet()) {
+                recyclerView.scrollToPosition(0)
+            }
         }
     }
 

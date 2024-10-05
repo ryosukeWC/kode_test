@@ -9,6 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class WorkersRepository @Inject constructor(private val api: WorkersApi) {
@@ -19,8 +20,10 @@ class WorkersRepository @Inject constructor(private val api: WorkersApi) {
 
         try {
             val apiRequest = api.getWorkers()
-            emit(ResponseResult.Success(apiRequest.toWorkerListPOJO().sortedBy { worker -> worker.firstName }
-            ))
+            val workersList = withContext(Dispatchers.Default) {
+                apiRequest.toWorkerListPOJO().sortedBy { worker -> worker.firstName }
+            }
+            emit(ResponseResult.Success(workersList))
         }
         catch (exception : Exception) {
             val message = exception.message ?: "Unknown exception"

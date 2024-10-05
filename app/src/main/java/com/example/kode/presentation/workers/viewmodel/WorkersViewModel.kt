@@ -8,10 +8,13 @@ import com.example.kode.data.model.Worker
 import com.example.kode.presentation.workers.UiState
 import com.example.kode.presentation.workers.toUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -21,6 +24,8 @@ class WorkersViewModel @Inject constructor(
 
     private val _state = MutableStateFlow<UiState>(UiState.Loading)
     val state: StateFlow<UiState> = _state
+
+    private lateinit var fetchedList : List<Worker>
 
     private val _adapterList = MutableStateFlow<List<Worker>>(emptyList())
     val adapterList: StateFlow<List<Worker>> = _adapterList
@@ -65,6 +70,19 @@ class WorkersViewModel @Inject constructor(
         }
     }
 
+    fun getListWithLoading(newList: List<Worker>) {
+        viewModelScope.launch(Dispatchers.Main) {
+            _state.value = UiState.Loading
+            delay(500L)
+            try {
+                _state.value = UiState.Success(newList)
+            }
+            catch (e : Exception) {
+                _state.value = UiState.Error(e.message ?: "Unknown exception")
+            }
+        }
+    }
+
     fun filterTheListByDepartment(departmentName: String) {
         _adapterList.value = getFetchedList().filter { worker ->
             worker.department.contains(departmentName, ignoreCase = true)
@@ -75,8 +93,8 @@ class WorkersViewModel @Inject constructor(
         return (_state.value as UiState.Success).workersList
     }
 
-    fun setFetchedListToAdapter() {
-        _adapterList.value = (_state.value as UiState.Success).workersList
+    fun getListFromSuccessState() : List<Worker> {
+        return (_state.value as UiState.Success).workersList
     }
 
     fun searchFilterByName(name : String) : List<Worker> {
@@ -87,9 +105,11 @@ class WorkersViewModel @Inject constructor(
         return filteredList
     }
 
-    fun filterByAlphabet() : List<Worker> {
-        val currencyList = _adapterList.value
-        return currencyList.sortedBy { "${it.firstName} ${it.lastName}" }
+    suspend fun returnFilteredListByAlphabet() : List<Worker> {
+        return withContext(Dispatchers.Default) {
+            val currencyList = _adapterList.value
+            currencyList.sortedBy { "${it.firstName} ${it.lastName}"}
+        }
     }
 
     fun filterByBirthday() : List<Worker> {
